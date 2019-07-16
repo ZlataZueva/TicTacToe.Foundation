@@ -37,6 +37,7 @@
     <Compile Include="Figures\Cross.cs" />
     <Compile Include="Figures\Figure.cs" />
     <Compile Include="Figures\FigureType.cs" />
+    <Compile Include="Interfaces\IFigure.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
