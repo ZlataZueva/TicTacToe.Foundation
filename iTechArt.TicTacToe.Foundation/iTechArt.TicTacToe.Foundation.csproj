@@ -36,6 +36,7 @@
     <Compile Include="Circle.cs" />
     <Compile Include="Cross.cs" />
     <Compile Include="Figure.cs" />
+    <Compile Include="FigureType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

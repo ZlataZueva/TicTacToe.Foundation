@@ -2,17 +2,10 @@
 {
     public abstract class Figure
     {
-        public enum FigureType
-        {
-            Cross,
-            Circle
-        }
+        public FigureType Type { get; }
 
 
-        public readonly FigureType Type;
-
-
-        protected Figure (FigureType type)
+        protected Figure(FigureType type)
         {
             Type = type;
         }
