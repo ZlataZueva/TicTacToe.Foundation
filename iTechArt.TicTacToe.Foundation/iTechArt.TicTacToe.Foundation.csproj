@@ -33,10 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Circle.cs" />
-    <Compile Include="Cross.cs" />
-    <Compile Include="Figure.cs" />
-    <Compile Include="FigureType.cs" />
+    <Compile Include="Figures\Circle.cs" />
+    <Compile Include="Figures\Cross.cs" />
+    <Compile Include="Figures\Figure.cs" />
+    <Compile Include="Figures\FigureType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

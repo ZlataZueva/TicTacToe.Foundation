@@ -1,4 +1,4 @@
-﻿namespace iTechArt.TicTacToe.Foundation
+﻿namespace iTechArt.TicTacToe.Foundation.Figures
 {
     public enum FigureType
     {
