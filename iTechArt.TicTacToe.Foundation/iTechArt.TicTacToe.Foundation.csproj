@@ -34,6 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Board\Cell.cs" />
+    <Compile Include="Board\Point.cs" />
     <Compile Include="FigureFactories\CircleFactory.cs" />
     <Compile Include="FigureFactories\CrossFactory.cs" />
     <Compile Include="Figures\Circle.cs" />
@@ -43,6 +44,7 @@
     <Compile Include="Interfaces\ICell.cs" />
     <Compile Include="Interfaces\IFigure.cs" />
     <Compile Include="Interfaces\IFigureFactory.cs" />
+    <Compile Include="Interfaces\IPosition.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
