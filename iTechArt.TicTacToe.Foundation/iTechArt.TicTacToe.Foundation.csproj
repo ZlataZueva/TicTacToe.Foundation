@@ -33,12 +33,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Board\Cell.cs" />
     <Compile Include="FigureFactories\CircleFactory.cs" />
     <Compile Include="FigureFactories\CrossFactory.cs" />
     <Compile Include="Figures\Circle.cs" />
     <Compile Include="Figures\Cross.cs" />
     <Compile Include="Figures\Figure.cs" />
     <Compile Include="Figures\FigureType.cs" />
+    <Compile Include="Interfaces\ICell.cs" />
     <Compile Include="Interfaces\IFigure.cs" />
     <Compile Include="Interfaces\IFigureFactory.cs" />
   </ItemGroup>
