@@ -2,11 +2,12 @@
 {
     public interface ICell
     {
-        IPosition Position { get; }
+        int Row { get; }
+
+        int Column { get; }
 
         bool IsEmpty { get; }
         
-        
-        IFigure PlacedFigure { get; set; }
+        IFigure Figure { get; set; }
     }
 }

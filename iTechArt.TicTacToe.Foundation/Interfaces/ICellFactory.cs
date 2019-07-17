@@ -2,6 +2,6 @@
 {
     public interface ICellFactory
     {
-        ICell CreateCell(IPosition position);
+        ICell CreateCell(int row, int column);
     }
 }
