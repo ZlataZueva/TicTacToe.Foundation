@@ -2,7 +2,7 @@
 
 namespace iTechArt.TicTacToe.Foundation.Cell
 {
-    public class Cell : ICell
+    public class Cell : IFigureSettableCell
     {
         public int Row { get; }
 

@@ -7,7 +7,7 @@
         int Column { get; }
 
         bool IsEmpty { get; }
-        
-        IFigure Figure { get; set; }
+
+        IFigure Figure { get; }
     }
 }
