@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{66864C87-6833-4E11-AC02-8AE46BEDC999}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>iTechArt.TicTacToe.Foundation</RootNamespace>
     <AssemblyName>iTechArt.TicTacToe.Foundation</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
@@ -32,8 +32,12 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Compile Include="Cell\Cell.cs" />
+    <Compile Include="Cell\CellFactory.cs" />
     <Compile Include="Figures\Circle.cs" />
     <Compile Include="Figures\Cross.cs" />
     <Compile Include="Figures\Figure.cs" />
