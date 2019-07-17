@@ -1,7 +1,9 @@
-﻿namespace iTechArt.TicTacToe.Foundation.Interfaces
+﻿using iTechArt.TicTacToe.Foundation.Figures;
+
+namespace iTechArt.TicTacToe.Foundation.Interfaces
 {
     public interface IFigureFactory
     {
-        IFigure CreateFigure();
+        IFigure CreateFigure(FigureType type);
     }
 }
