@@ -74,17 +74,5 @@ namespace iTechArt.TicTacToe.Foundation.Board
                 throw new ArgumentException("Specified position is occupied");
             }
         }
-
-        public IFigure GetFigureOnPosition(int row, int column)
-        {
-            var cell = this[row, column];
-            if (!cell.IsEmpty)
-            {
-
-                return cell.Figure;
-            }
-
-            throw new ArgumentException("Specified position is empty");
-        }
     }
 }
