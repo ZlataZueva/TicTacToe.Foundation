@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using iTechArt.TicTacToe.Foundation.Figures;
 using iTechArt.TicTacToe.Foundation.Interfaces;
@@ -8,7 +9,7 @@ namespace iTechArt.TicTacToe.Foundation.Board
 {
     internal class Board : IBoard
     {
-        private readonly List<ICellInternal> _cells;
+        private readonly IReadOnlyCollection<ICellInternal> _cells;
         private readonly IFigureFactory _figureFactory;
 
 
@@ -42,14 +43,11 @@ namespace iTechArt.TicTacToe.Foundation.Board
         {
             Size = size;
             _figureFactory = figureFactory;
-            _cells = new List<ICellInternal>();
-            for (var row = 0; row < size; row++)
-            {
-                for (var column = 0; column < size; column++)
-                {
-                    _cells.Add((ICellInternal)cellFactory.CreateCell(row, column));
-                }
-            }
+            _cells = new ReadOnlyCollection<ICellInternal>(Enumerable.Range(0,size)
+                .SelectMany(row => 
+                    Enumerable.Range(0, size)
+                        .Select(column => (ICellInternal)cellFactory.CreateCell(row, column)))
+                .ToList());
         }
 
 
