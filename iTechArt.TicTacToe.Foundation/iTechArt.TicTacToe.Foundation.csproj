@@ -44,7 +44,7 @@
     <Compile Include="Figures\FigureFactory.cs" />
     <Compile Include="Figures\FigureType.cs" />
     <Compile Include="Interfaces\ICellFactory.cs" />
-    <Compile Include="Interfaces\IFigureSettableCell.cs" />
+    <Compile Include="Interfaces\ICellInternal.cs" />
     <Compile Include="Interfaces\IFigure.cs" />
     <Compile Include="Interfaces\IFigureFactory.cs" />
     <Compile Include="Interfaces\ICell.cs" />
