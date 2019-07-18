@@ -15,11 +15,11 @@ namespace iTechArt.TicTacToe.Foundation.WinningStates
         }
 
 
-        protected bool AreFigureTypesEqual(IEnumerable<ICell> cells)
+        protected bool AreFilledWithFiguresOfOneType(IEnumerable<ICell> cells)
         {
             var cellsArray = cells.ToArray();
 
-            return cellsArray.All(cell => !cell.IsEmpty && cell.Figure.Type == cellsArray.First().Figure.Type);
+            return cellsArray.All(cell => !cell.IsEmpty && cell.Figure.Type == cellsArray[0].Figure.Type);
         }
 
         

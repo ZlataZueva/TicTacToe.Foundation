@@ -17,7 +17,7 @@ namespace iTechArt.TicTacToe.Foundation.WinningStates
         {
             winningCells = null;
             var mainDiagonalCells = board.Where(cell => cell.Row == cell.Column);
-            if (AreFigureTypesEqual(mainDiagonalCells))
+            if (AreFilledWithFiguresOfOneType(mainDiagonalCells))
             {
                 winningCells = mainDiagonalCells;
 
@@ -25,7 +25,7 @@ namespace iTechArt.TicTacToe.Foundation.WinningStates
             }
 
             var sideDiagonalCells = board.Where(cell => cell.Row == board.Size - cell.Column - 1);
-            if (AreFigureTypesEqual(sideDiagonalCells))
+            if (AreFilledWithFiguresOfOneType(sideDiagonalCells))
             {
                 winningCells = sideDiagonalCells;
 

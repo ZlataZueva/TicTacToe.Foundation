@@ -19,7 +19,7 @@ namespace iTechArt.TicTacToe.Foundation.WinningStates
             foreach(var row in Enumerable.Range(0,board.Size))
             {
                 var rowCells = board.Where(cell => cell.Row == row);
-                if (AreFigureTypesEqual(rowCells))
+                if (AreFilledWithFiguresOfOneType(rowCells))
                 {
                     winningCells = rowCells;
 
