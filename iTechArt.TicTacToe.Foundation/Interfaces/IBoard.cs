@@ -1,4 +1,5 @@
-﻿using iTechArt.TicTacToe.Foundation.Figures;
+﻿using iTechArt.TicTacToe.Foundation.Board;
+using iTechArt.TicTacToe.Foundation.Figures;
 
 namespace iTechArt.TicTacToe.Foundation.Interfaces
 {
@@ -9,6 +10,6 @@ namespace iTechArt.TicTacToe.Foundation.Interfaces
         bool IsFilled { get; }
 
 
-        void PlaceFigure(int row, int column, FigureType type);
+        FIllCellResult PlaceFigure(int row, int column, FigureType type);
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using iTechArt.TicTacToe.Foundation.Figures;
 using iTechArt.TicTacToe.Foundation.Interfaces;
 
@@ -51,16 +52,23 @@ namespace iTechArt.TicTacToe.Foundation.Board
         }
 
 
-        public void PlaceFigure(int row, int column, FigureType type)
+        public FIllCellResult PlaceFigure(int row, int column, FigureType type)
         {
-            var cell = this[row, column];
-            if (cell.IsEmpty)
+            try
             {
-                cell.Figure = _figureFactory.CreateFigure(type);
+                var cell = this[row, column];
+                if (cell.IsEmpty)
+                {
+                    cell.Figure = _figureFactory.CreateFigure(type);
+
+                    return FIllCellResult.Success;
+                }
+
+                return FIllCellResult.OccupiedCell;
             }
-            else
+            catch (ArgumentException)
             {
-                throw new ArgumentException("Specified position is occupied");
+                return FIllCellResult.NonexistentCell;
             }
         }
     }
