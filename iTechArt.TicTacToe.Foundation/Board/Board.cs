@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using iTechArt.TicTacToe.Foundation.Figures;
 using iTechArt.TicTacToe.Foundation.Interfaces;
 
@@ -16,13 +16,7 @@ namespace iTechArt.TicTacToe.Foundation.Board
 
         public int Size { get; }
 
-        public bool IsFilled
-        {
-            get
-            {
-                return _cells.All(cell => !cell.IsEmpty);
-            }
-        }
+        public bool IsFilled => _cells.All(cell => !cell.IsEmpty);
 
 
         private ICellInternal this[int row, int column]
@@ -70,6 +64,16 @@ namespace iTechArt.TicTacToe.Foundation.Board
             {
                 return FIllCellResult.NonexistentCell;
             }
+        }
+
+        public IEnumerator<ICell> GetEnumerator()
+        {
+            return _cells.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }
