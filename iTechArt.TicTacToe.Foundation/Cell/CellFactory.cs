@@ -6,7 +6,6 @@ namespace iTechArt.TicTacToe.Foundation.Cell
     {
         public ICell CreateCell(int row, int column)
         {
-            
             return new Cell(row, column);
         }
     }

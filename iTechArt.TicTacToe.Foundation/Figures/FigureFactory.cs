@@ -10,13 +10,10 @@ namespace iTechArt.TicTacToe.Foundation.Figures
             switch (type)
             {
                 case FigureType.Circle:
-                    
                     return new Circle();
                 case FigureType.Cross:
-
                     return new Cross();
                 default:
-
                     throw new ArgumentOutOfRangeException(nameof(type), type, "Unknown type parameter");
             }
         }
