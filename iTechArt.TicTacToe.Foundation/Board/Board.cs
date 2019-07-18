@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using iTechArt.TicTacToe.Foundation.Cell;
+using iTechArt.TicTacToe.Foundation.Figures;
 using iTechArt.TicTacToe.Foundation.Interfaces;
 
 namespace iTechArt.TicTacToe.Foundation.Board
 {
     internal class Board : IBoard
     {
-        private readonly List<IFigureSettableCell> _cells;
+        private readonly List<ICellInternal> _cells;
+        private readonly IFigureFactory _figureFactory;
 
 
         public int Size { get; }
@@ -17,43 +18,18 @@ namespace iTechArt.TicTacToe.Foundation.Board
         {
             get
             {
-                foreach (var cell in _cells)
-                {
-                    if (cell.IsEmpty)
-                    {
-
-                        return false;
-                    }
-                }
-
-                return true;
+                return _cells.All(cell => !cell.IsEmpty);
             }
         }
 
 
-        public Board(int size)
-        {
-            Size = size;
-            _cells = new List<IFigureSettableCell>();
-            var cellFactory = new CellFactory();
-            for (var row = 0; row < size; row++)
-            {
-                for (var column = 0; column < size; column++)
-                {
-                    _cells.Add((IFigureSettableCell)cellFactory.CreateCell(row, column));
-                }
-            }
-        }
-
-
-        private IFigureSettableCell this[int row, int column]
+        private ICellInternal this[int row, int column]
         {
             get
             {
                 var cell = _cells.FirstOrDefault(c => c.Row == row && c.Column == column);
                 if (cell != null)
                 {
-
                     return cell;
                 }
 
@@ -62,12 +38,27 @@ namespace iTechArt.TicTacToe.Foundation.Board
         }
 
 
-        public void PlaceFigure(int row, int column, IFigure figure)
+        public Board(int size, ICellFactory cellFactory, IFigureFactory figureFactory)
+        {
+            Size = size;
+            _figureFactory = figureFactory;
+            _cells = new List<ICellInternal>();
+            for (var row = 0; row < size; row++)
+            {
+                for (var column = 0; column < size; column++)
+                {
+                    _cells.Add((ICellInternal)cellFactory.CreateCell(row, column));
+                }
+            }
+        }
+
+
+        public void PlaceFigure(int row, int column, FigureType type)
         {
             var cell = this[row, column];
             if (cell.IsEmpty)
             {
-                cell.Figure = figure;
+                cell.Figure = _figureFactory.CreateFigure(type);
             }
             else
             {

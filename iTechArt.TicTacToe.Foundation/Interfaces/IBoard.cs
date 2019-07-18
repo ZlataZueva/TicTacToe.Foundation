@@ -1,4 +1,6 @@
-﻿namespace iTechArt.TicTacToe.Foundation.Interfaces
+﻿using iTechArt.TicTacToe.Foundation.Figures;
+
+namespace iTechArt.TicTacToe.Foundation.Interfaces
 {
     public interface IBoard
     {
@@ -7,6 +9,6 @@
         bool IsFilled { get; }
 
 
-        void PlaceFigure(int row, int column, IFigure figure);
+        void PlaceFigure(int row, int column, FigureType type);
     }
 }
