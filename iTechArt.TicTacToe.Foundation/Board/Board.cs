@@ -66,7 +66,7 @@ namespace iTechArt.TicTacToe.Foundation.Board
 
         private bool TryGetCell(int row, int column, out ICellInternal cell)
         {
-            cell = _cells.FirstOrDefault(c => c.Row == row && c.Column == column);
+            cell = _cells.SingleOrDefault(c => c.Row == row && c.Column == column);
 
             return cell != null;
         }
