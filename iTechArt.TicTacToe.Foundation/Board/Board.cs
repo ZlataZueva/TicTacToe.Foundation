@@ -8,7 +8,7 @@ using iTechArt.TicTacToe.Foundation.Interfaces;
 
 namespace iTechArt.TicTacToe.Foundation.Board
 {
-    internal class Board : IBoard
+    public class Board : IBoard
     {
         private readonly IReadOnlyCollection<ICellInternal> _cells;
         private readonly IFigureFactory _figureFactory;
@@ -59,6 +59,10 @@ namespace iTechArt.TicTacToe.Foundation.Board
                 }
 
                 return FIllCellResult.OccupiedCell;
+            }
+            catch (ArgumentOutOfRangeException)
+            {
+                return FIllCellResult.UnknownFigureType;
             }
             catch (ArgumentException)
             {
