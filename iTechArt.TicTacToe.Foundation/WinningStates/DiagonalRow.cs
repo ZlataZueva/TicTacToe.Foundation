@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using iTechArt.TicTacToe.Foundation.Interfaces;
 
@@ -15,14 +16,19 @@ namespace iTechArt.TicTacToe.Foundation.WinningStates
         
         public override bool IsPresentOnBoard(IBoard board, out IEnumerable<ICell> winningCells)
         {
-            var diagonals = new[]
+            if (board != null)
             {
-                board.Where(cell => cell.Row == cell.Column),
-                board.Where(cell => cell.Row == board.Size - cell.Column - 1)
-            };
-            winningCells = diagonals.FirstOrDefault(CellsFilledWithFiguresOfOneType);
+                var diagonals = new[]
+                {
+                    board.Where(cell => cell.Row == cell.Column),
+                    board.Where(cell => cell.Row == board.Size - cell.Column - 1)
+                };
+                winningCells = diagonals.FirstOrDefault(CellsFilledWithFiguresOfOneType);
 
-            return winningCells != null;
+                return winningCells != null;
+            }
+
+            throw  new ArgumentNullException(nameof(board));
         }
     }
 }
