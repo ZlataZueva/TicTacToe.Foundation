@@ -52,10 +52,11 @@
     <Compile Include="Interfaces\IFigureFactory.cs" />
     <Compile Include="Interfaces\ICell.cs" />
     <Compile Include="Interfaces\IWinningState.cs" />
-    <Compile Include="WinningStates\MainDiagonal.cs" />
-    <Compile Include="WinningStates\Row.cs" />
-    <Compile Include="WinningStates\MinorDiagonal.cs" />
-    <Compile Include="WinningStates\Column.cs" />
+    <Compile Include="Cell\CellsEqualityComparer.cs" />
+    <Compile Include="WinningStates\FilledMajorDiagonal.cs" />
+    <Compile Include="WinningStates\FilledRow.cs" />
+    <Compile Include="WinningStates\FilledMinorDiagonal.cs" />
+    <Compile Include="WinningStates\FilledColumn.cs" />
     <Compile Include="WinningStates\WinningState.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
