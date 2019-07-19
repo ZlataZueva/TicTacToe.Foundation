@@ -7,7 +7,7 @@ namespace iTechArt.TicTacToe.Foundation.WinningStates
     public class DiagonalRow : WinningState
     {
         public DiagonalRow()
-        : base(WinningStateType.Diagonal)
+        : base(WinningStateType.DiagonalRow)
         {
 
         }
@@ -15,24 +15,14 @@ namespace iTechArt.TicTacToe.Foundation.WinningStates
         
         public override bool IsPresentOnBoard(IBoard board, out IEnumerable<ICell> winningCells)
         {
-            winningCells = null;
-            var mainDiagonalCells = board.Where(cell => cell.Row == cell.Column);
-            if (AreFilledWithFiguresOfOneType(mainDiagonalCells))
+            var diagonals = new[]
             {
-                winningCells = mainDiagonalCells;
+                board.Where(cell => cell.Row == cell.Column),
+                board.Where(cell => cell.Row == board.Size - cell.Column - 1)
+            };
+            winningCells = diagonals.FirstOrDefault(CellsFilledWithFiguresOfOneType);
 
-                return true;
-            }
-
-            var sideDiagonalCells = board.Where(cell => cell.Row == board.Size - cell.Column - 1);
-            if (AreFilledWithFiguresOfOneType(sideDiagonalCells))
-            {
-                winningCells = sideDiagonalCells;
-
-                return true;
-            }
-
-            return false;
+            return winningCells != null;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace iTechArt.TicTacToe.Foundation.WinningStates
         }
 
 
-        protected bool AreFilledWithFiguresOfOneType(IEnumerable<ICell> cells)
+        protected bool CellsFilledWithFiguresOfOneType(IEnumerable<ICell> cells)
         {
             var cellsArray = cells.ToArray();
 

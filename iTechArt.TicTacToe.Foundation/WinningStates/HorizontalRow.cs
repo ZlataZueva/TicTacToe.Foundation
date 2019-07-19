@@ -7,7 +7,7 @@ namespace iTechArt.TicTacToe.Foundation.WinningStates
     public class HorizontalRow : WinningState
     {
         public HorizontalRow()
-        : base(WinningStateType.Horizontal)
+        : base(WinningStateType.HorizontalRow)
         {
 
         }
@@ -15,19 +15,11 @@ namespace iTechArt.TicTacToe.Foundation.WinningStates
 
         public override bool IsPresentOnBoard(IBoard board, out IEnumerable<ICell> winningCells)
         {
-            winningCells = null;
-            foreach(var row in Enumerable.Range(0,board.Size))
-            {
-                var rowCells = board.Where(cell => cell.Row == row);
-                if (AreFilledWithFiguresOfOneType(rowCells))
-                {
-                    winningCells = rowCells;
+            winningCells = Enumerable.Range(0, board.Size)
+                .Select(row => board.Where(cell => cell.Row == row))
+                .FirstOrDefault(CellsFilledWithFiguresOfOneType);
 
-                    return true;
-                }
-            }
-
-            return false;
+            return winningCells != null;
         }
     }
 }

@@ -2,8 +2,8 @@
 {
     public enum WinningStateType
     {
-        Horizontal,
-        Vertical,
-        Diagonal
+        HorizontalRow,
+        VerticalRow,
+        DiagonalRow
     }
 }
