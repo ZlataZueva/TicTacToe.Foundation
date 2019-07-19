@@ -52,12 +52,10 @@
     <Compile Include="Interfaces\IFigureFactory.cs" />
     <Compile Include="Interfaces\ICell.cs" />
     <Compile Include="Interfaces\IWinningState.cs" />
-    <Compile Include="WinningStates\BoardScanResult.cs" />
     <Compile Include="WinningStates\DiagonalRow.cs" />
     <Compile Include="WinningStates\HorizontalRow.cs" />
     <Compile Include="WinningStates\VerticalRow.cs" />
     <Compile Include="WinningStates\WinningState.cs" />
-    <Compile Include="WinningStates\WinningStateType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

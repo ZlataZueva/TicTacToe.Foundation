@@ -8,7 +8,7 @@ namespace iTechArt.TicTacToe.Foundation.WinningStates
     public class DiagonalRow : WinningState
     {
         public DiagonalRow()
-        : base(WinningStateType.DiagonalRow)
+        : base()
         {
 
         }

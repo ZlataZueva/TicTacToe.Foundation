@@ -6,12 +6,9 @@ namespace iTechArt.TicTacToe.Foundation.WinningStates
 {
     public abstract class WinningState : IWinningState
     {
-        public WinningStateType Type { get; }
-
-
-        protected WinningState(WinningStateType type)
+        protected WinningState()
         {
-            Type = type;
+
         }
 
 
