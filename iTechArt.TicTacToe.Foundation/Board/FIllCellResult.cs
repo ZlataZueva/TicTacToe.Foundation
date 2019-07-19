@@ -4,6 +4,7 @@
     {
         Success,
         NonexistentCell,
-        OccupiedCell
+        OccupiedCell,
+        UnknownFigureType
     }
 }
