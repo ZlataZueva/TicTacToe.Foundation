@@ -1,7 +1,6 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using iTechArt.TicTacToe.Foundation.Figures;
 using iTechArt.TicTacToe.Foundation.Interfaces;
@@ -10,8 +9,9 @@ namespace iTechArt.TicTacToe.Foundation.Board
 {
     public class Board : IBoard
     {
-        private readonly IReadOnlyCollection<ICellInternal> _cells;
         private readonly IFigureFactory _figureFactory;
+
+        private readonly IReadOnlyCollection<ICellInternal> _cells;
 
 
         public int Size { get; }
@@ -19,12 +19,11 @@ namespace iTechArt.TicTacToe.Foundation.Board
         public bool IsFilled => _cells.All(cell => !cell.IsEmpty);
 
 
-        private ICellInternal this[int row, int column]
+        public ICell this[int row, int column]
         {
             get
             {
-                var cell = _cells.FirstOrDefault(c => c.Row == row && c.Column == column);
-                if (cell != null)
+                if (TryGetCell(row, column, out var cell))
                 {
                     return cell;
                 }
@@ -36,38 +35,44 @@ namespace iTechArt.TicTacToe.Foundation.Board
 
         public Board(int size, ICellFactory cellFactory, IFigureFactory figureFactory)
         {
-            Size = size;
             _figureFactory = figureFactory;
-            _cells = new ReadOnlyCollection<ICellInternal>(Enumerable.Range(0,size)
+
+            Size = size;
+            _cells = Enumerable.Range(0, size)
                 .SelectMany(row => 
                     Enumerable.Range(0, size)
-                        .Select(column => (ICellInternal)cellFactory.CreateCell(row, column)))
-                .ToList());
+                        .Select(column => cellFactory.CreateCell(row, column))
+                        .Cast<ICellInternal>())
+                .ToArray();
         }
 
 
-        public FIllCellResult PlaceFigure(int row, int column, FigureType type)
+        private bool TryGetCell(int row, int column, out ICellInternal cell)
         {
-            try
+            cell = _cells.FirstOrDefault(c => c.Row == row && c.Column == column);
+
+            return cell != null;
+        }
+
+
+        public FillCellResult PlaceFigure(int row, int column, FigureType type)
+        {
+            if (TryGetCell(row, column, out var cell))
             {
-                var cell = this[row, column];
                 if (cell.IsEmpty)
                 {
                     cell.Figure = _figureFactory.CreateFigure(type);
 
-                    return FIllCellResult.Success;
+                    return FillCellResult.Success;
                 }
 
-                return FIllCellResult.OccupiedCell;
-            }
+                return FillCellResult.OccupiedCell;
             catch (ArgumentOutOfRangeException)
             {
                 return FIllCellResult.UnknownFigureType;
             }
-            catch (ArgumentException)
-            {
-                return FIllCellResult.NonexistentCell;
-            }
+
+            return FillCellResult.NonexistentCell;
         }
 
         public IEnumerator<ICell> GetEnumerator()

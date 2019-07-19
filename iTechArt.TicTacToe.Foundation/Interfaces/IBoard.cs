@@ -11,6 +11,9 @@ namespace iTechArt.TicTacToe.Foundation.Interfaces
         bool IsFilled { get; }
 
 
-        FIllCellResult PlaceFigure(int row, int column, FigureType type);
+        ICell this[int row, int column] { get; }
+
+
+        FillCellResult PlaceFigure(int row, int column, FigureType type);
     }
 }
