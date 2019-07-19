@@ -36,7 +36,7 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Board\FIllCellResult.cs" />
+    <Compile Include="Board\FillCellResult.cs" />
     <Compile Include="Cell\Cell.cs" />
     <Compile Include="Cell\CellFactory.cs" />
     <Compile Include="Board\Board.cs" />

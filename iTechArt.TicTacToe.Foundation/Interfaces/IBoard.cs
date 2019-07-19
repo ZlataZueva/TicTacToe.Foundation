@@ -9,8 +9,10 @@ namespace iTechArt.TicTacToe.Foundation.Interfaces
         int Size { get; }
 
         bool IsFilled { get; }
+        
+        ICell this[int row, int column] { get; }
 
 
-        FIllCellResult PlaceFigure(int row, int column, FigureType type);
+        FillCellResult PlaceFigure(int row, int column, FigureType type);
     }
 }

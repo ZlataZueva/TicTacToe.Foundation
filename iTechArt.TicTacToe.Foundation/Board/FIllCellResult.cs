@@ -1,10 +1,9 @@
 ﻿namespace iTechArt.TicTacToe.Foundation.Board
 {
-    public enum FIllCellResult
+    public enum FillCellResult
     {
         Success,
         NonexistentCell,
-        OccupiedCell,
-        UnknownFigureType
+        OccupiedCell
     }
 }
