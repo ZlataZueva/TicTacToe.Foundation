@@ -17,20 +17,11 @@ namespace iTechArt.TicTacToe.Foundation.Board
         public int Size { get; }
 
         public bool IsFilled => _cells.All(cell => !cell.IsEmpty);
-
-
-        public ICell this[int row, int column]
-        {
-            get
-            {
-                if (TryGetCell(row, column, out var cell))
-                {
-                    return cell;
-                }
-
-                throw new ArgumentException("Specified position doesn't exist");
-            }
-        }
+        
+        public ICell this[int row, int column] =>
+            TryGetCell(row, column, out var cell)
+                ? cell
+                : throw new ArgumentException("Specified position doesn't exist");
 
 
         public Board(int size, ICellFactory cellFactory, IFigureFactory figureFactory)
@@ -41,35 +32,25 @@ namespace iTechArt.TicTacToe.Foundation.Board
             _cells = Enumerable.Range(0, size)
                 .SelectMany(row => 
                     Enumerable.Range(0, size)
-                        .Select(column => cellFactory.CreateCell(row, column))
-                        .Cast<ICellInternal>())
+                        .Select(column => cellFactory.CreateCell(row, column)))
+                .Cast<ICellInternal>()
                 .ToArray();
-        }
-
-
-        private bool TryGetCell(int row, int column, out ICellInternal cell)
-        {
-            cell = _cells.FirstOrDefault(c => c.Row == row && c.Column == column);
-
-            return cell != null;
         }
 
 
         public FillCellResult PlaceFigure(int row, int column, FigureType type)
         {
-            if (TryGetCell(row, column, out var cell))
+            if (!TryGetCell(row, column, out var cell))
             {
-                if (cell.IsEmpty)
-                {
-                    cell.Figure = _figureFactory.CreateFigure(type);
-
-                    return FillCellResult.Success;
-                }
-
+                return FillCellResult.NonexistentCell;
+            }
+            if (!cell.IsEmpty)
+            {
                 return FillCellResult.OccupiedCell;
             }
+            cell.Figure = _figureFactory.CreateFigure(type);
 
-            return FillCellResult.NonexistentCell;
+            return FillCellResult.Success;
         }
 
         public IEnumerator<ICell> GetEnumerator()
@@ -80,6 +61,14 @@ namespace iTechArt.TicTacToe.Foundation.Board
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+
+        private bool TryGetCell(int row, int column, out ICellInternal cell)
+        {
+            cell = _cells.FirstOrDefault(c => c.Row == row && c.Column == column);
+
+            return cell != null;
         }
     }
 }
