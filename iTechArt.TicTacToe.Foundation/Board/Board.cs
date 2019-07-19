@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,9 +67,6 @@ namespace iTechArt.TicTacToe.Foundation.Board
                 }
 
                 return FillCellResult.OccupiedCell;
-            catch (ArgumentOutOfRangeException)
-            {
-                return FIllCellResult.UnknownFigureType;
             }
 
             return FillCellResult.NonexistentCell;
