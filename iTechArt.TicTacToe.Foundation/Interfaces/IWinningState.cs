@@ -4,6 +4,8 @@ namespace iTechArt.TicTacToe.Foundation.Interfaces
 {
     public interface IWinningState
     {
-        bool IsPresentOnBoard(IBoard board, out IEnumerable<ICell> winningCells);
+        bool IsPresent { get; }
+
+        IEnumerable<ICell>  Cells { get; }
     }
 }
