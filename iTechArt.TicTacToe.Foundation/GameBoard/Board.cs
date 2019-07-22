@@ -5,7 +5,7 @@ using System.Linq;
 using iTechArt.TicTacToe.Foundation.Figures;
 using iTechArt.TicTacToe.Foundation.Interfaces;
 
-namespace iTechArt.TicTacToe.Foundation.Board
+namespace iTechArt.TicTacToe.Foundation.GameBoard
 {
     public class Board : IBoard
     {
