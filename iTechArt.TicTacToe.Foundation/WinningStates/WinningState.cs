@@ -7,22 +7,15 @@ namespace iTechArt.TicTacToe.Foundation.WinningStates
 {
     public abstract class WinningState : IWinningState
     {
-        private readonly IEqualityComparer<ICell> _cellsComparer;
+        public IReadOnlyCollection<ICell> Cells { get; }
         
-        private readonly IEnumerable<ICell> _cells;
+        public bool IsActive => Cells.Where(c => !c.IsEmpty).Select(c => c.Figure.Type)
+                                     .Distinct().Count() == 1;
 
 
-        public IEnumerable<ICell> Cells => IsPresent ? _cells : null;
-        
-        public bool IsPresent => _cells.Distinct(_cellsComparer)
-                                     .Count(cell => !cell.IsEmpty) == 1;
-
-
-        protected WinningState(IBoard board, Func<ICell, bool> filter, IEqualityComparer<ICell> cellsComparer)
+        protected WinningState(IBoard board, Func<ICell, bool> filter)
         {
-            _cellsComparer = cellsComparer;
-
-            _cells = board.Where(filter);
+            Cells = board.Where(filter).ToList();
         }
     }
 }
