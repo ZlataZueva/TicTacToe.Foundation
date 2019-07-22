@@ -1,24 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using iTechArt.TicTacToe.Foundation.Cell;
 using iTechArt.TicTacToe.Foundation.Interfaces;
 
 namespace iTechArt.TicTacToe.Foundation.WinningStates
 {
     public class WinningStatesFactory : IWinningStatesFactory
     {
-        public IEnumerable<IWinningState> CreateWinningStates(IBoard board)
+        public IReadOnlyCollection<IWinningState> CreateWinningStates(IBoard board)
         {
-            var cellsComparer = new CellsEqualityComparer();
+            var columns = Enumerable.Range(0, board.Size).Select<int, IWinningState>(n => new FilledColumn(board, n));
+            var rows = Enumerable.Range(0, board.Size).Select<int, IWinningState>(n => new FilledRow(board, n));
+            var diagonals = new IWinningState[] {new FilledMajorDiagonal(board), new FilledMinorDiagonal(board)};
 
-            return Enumerable.Range(0, board.Size)
-                .SelectMany(number => new WinningState[]
-                {
-                    new FilledColumn(board, number, cellsComparer),
-                    new FilledRow(board, number, cellsComparer)
-                })
-                .Append(new FilledMajorDiagonal(board, cellsComparer))
-                .Append(new FilledMinorDiagonal(board, cellsComparer));
+            return columns.Concat(rows).Concat(diagonals).ToList();
         }
     }
 }

@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-using iTechArt.TicTacToe.Foundation.Interfaces;
+﻿using iTechArt.TicTacToe.Foundation.Interfaces;
 
 namespace iTechArt.TicTacToe.Foundation.WinningStates
 {
     public class FilledMajorDiagonal : WinningState
     {
-        public FilledMajorDiagonal(IBoard board, IEqualityComparer<ICell> cellsComparer)
-        : base(board, cell => cell.Row == cell.Column, cellsComparer)
+        public FilledMajorDiagonal(IBoard board)
+            : base(board, cell => cell.Row == cell.Column)
         {
 
         }
