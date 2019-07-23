@@ -46,6 +46,7 @@
     <Compile Include="Figures\Figure.cs" />
     <Compile Include="Figures\FigureFactory.cs" />
     <Compile Include="Figures\FigureType.cs" />
+    <Compile Include="Game\BoardStateChangedEventArgs.cs" />
     <Compile Include="Game\Game.cs" />
     <Compile Include="Game\GameConfiguration.cs" />
     <Compile Include="Interfaces\IBoard.cs" />

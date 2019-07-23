@@ -1,20 +1,12 @@
-﻿using iTechArt.TicTacToe.Foundation.Board;
-
-namespace iTechArt.TicTacToe.Foundation.Interfaces
+﻿namespace iTechArt.TicTacToe.Foundation.Interfaces
 {
+    public delegate void BoardStateChangedHandler(IBoard newBoardState);
+
+
     public interface IGame
     {
-        IBoard Board { get; }
+        event BoardStateChangedHandler BoardStateChanged;
 
-        IPlayer CurrentPlayer { get; }
-
-        bool IsFinished { get; }
-
-        IPlayer Winner { get; }
-
-
-        void Start();
-
-        FillCellResult MakeMove(int row, int column);
+        void Run();
     }
 }

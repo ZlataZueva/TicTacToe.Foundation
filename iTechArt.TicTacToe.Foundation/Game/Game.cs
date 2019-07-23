@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using iTechArt.TicTacToe.Foundation.Interfaces;
 using iTechArt.TicTacToe.Foundation.Board;
@@ -10,6 +11,7 @@ namespace iTechArt.TicTacToe.Foundation.Game
         private readonly IGameConfiguration _gameConfiguration;
         private readonly int _playersAmount;
 
+        private readonly IBoard _board;
         private readonly IReadOnlyCollection<IWinningState> _winningStates;
 
         private int _nextPlayerIndex;
@@ -26,46 +28,48 @@ namespace iTechArt.TicTacToe.Foundation.Game
         }
 
 
-        public IBoard Board { get; }
-
         public IPlayer CurrentPlayer { get; private set; }
 
         public bool IsFinished { get; private set; }
 
         public IPlayer Winner { get; private set; }
 
-        
+
+        public event BoardStateChangedHandler BoardStateChanged;
+
+
         public Game(IGameConfiguration gameConfiguration,
                     IBoardFactory boardFactory,
                     IWinningStatesFactory winningStatesFactory)
         {
             _gameConfiguration = gameConfiguration;
 
-            Board = boardFactory.CreateBoard(_gameConfiguration.BoardSize);
+            _board = boardFactory.CreateBoard(_gameConfiguration.BoardSize);
+            _winningStates = winningStatesFactory.CreateWinningStates(_board);
             _playersAmount = _gameConfiguration.Players.Count();
-            _winningStates = winningStatesFactory.CreateWinningStates(Board);
         }
 
-        
-        public void Start()
+
+        public void Run()
         {
             CurrentPlayer = NextPlayer;
         }
 
         public FillCellResult MakeMove(int row, int column)
         {
-            var placeResult = Board.PlaceFigure(row, column, CurrentPlayer.FigureType);
+            var placeResult = _board.PlaceFigure(row, column, CurrentPlayer.FigureType);
             if (placeResult != FillCellResult.Success)
             {
                 return placeResult;
             }
+            OnBoardStateChanged(_board);
             var winningState = _winningStates.SingleOrDefault(state => state.IsActive);
             if (winningState != null)
             {
                 IsFinished = true;
                 Winner = CurrentPlayer;
             }
-            if (Board.IsFilled)
+            if (_board.IsFilled)
             {
                 IsFinished = true;
             }
@@ -75,6 +79,12 @@ namespace iTechArt.TicTacToe.Foundation.Game
             }
 
             return placeResult;
+        }
+
+
+        protected void OnBoardStateChanged(IBoard board)
+        {
+            BoardStateChanged?.Invoke(board);
         }
     }
 }
