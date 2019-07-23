@@ -6,6 +6,8 @@ namespace iTechArt.TicTacToe.Foundation.Interfaces
     {
         IReadOnlyCollection<IPlayer> Players { get; }
 
+        int FirstPlayerIndex { get; }
+
         int BoardSize { get; }
     }
 }
