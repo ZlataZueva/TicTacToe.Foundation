@@ -4,9 +4,7 @@ namespace iTechArt.TicTacToe.Foundation.Interfaces
 {
     public interface IGameConfiguration
     {
-        ICollection<IPlayer> Players { get; }
-
-        IPlayer NextPlayer { get; }
+        IReadOnlyCollection<IPlayer> Players { get; }
 
         int BoardSize { get; }
     }

@@ -10,7 +10,21 @@ namespace iTechArt.TicTacToe.Foundation.Game
     {
         private readonly IGameConfiguration _gameConfiguration;
 
+        private readonly int _playersAmount;
         private readonly IReadOnlyCollection<IWinningState> _winningStates;
+
+        private int _nextPlayerIndex;
+
+
+        private IPlayer NextPlayer
+        {
+            get
+            {
+                _nextPlayerIndex %= _playersAmount;
+
+                return _gameConfiguration.Players.ElementAt(_nextPlayerIndex++);
+            }
+        }
 
 
         public IBoard Board { get; }
@@ -21,20 +35,21 @@ namespace iTechArt.TicTacToe.Foundation.Game
 
         public IPlayer Winner { get; private set; }
 
-
+        
         public Game(IGameConfiguration gameConfiguration, ICellFactory cellFactory, 
             IFigureFactory figureFactory, IWinningStatesFactory winningStatesFactory)
         {
             _gameConfiguration = gameConfiguration;
 
             Board = new Board(gameConfiguration.BoardSize, cellFactory, figureFactory);
+            _playersAmount = _gameConfiguration.Players.Count();
             _winningStates = winningStatesFactory.CreateWinningStates(Board);
         }
 
         
         public void Start()
         {
-            CurrentPlayer = _gameConfiguration.NextPlayer;
+            CurrentPlayer = NextPlayer;
         }
 
         public MoveResult MakeMove(int row, int column)
@@ -58,7 +73,7 @@ namespace iTechArt.TicTacToe.Foundation.Game
 
                         return MoveResult.GameEnd;
                     }
-                    CurrentPlayer = _gameConfiguration.NextPlayer;
+                    CurrentPlayer = NextPlayer;
 
                     return MoveResult.NextTurn;
                 }
