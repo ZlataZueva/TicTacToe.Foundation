@@ -1,8 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using iTechArt.TicTacToe.Foundation.Interfaces;
-using iTechArt.TicTacToe.Foundation.GameBoard;
+using iTechArt.TicTacToe.Foundation.Board;
 
 namespace iTechArt.TicTacToe.Foundation.Game
 {
@@ -36,12 +35,13 @@ namespace iTechArt.TicTacToe.Foundation.Game
         public IPlayer Winner { get; private set; }
 
         
-        public Game(IGameConfiguration gameConfiguration, ICellFactory cellFactory, 
-            IFigureFactory figureFactory, IWinningStatesFactory winningStatesFactory)
+        public Game(IGameConfiguration gameConfiguration,
+                    IBoardFactory boardFactory,
+                    IWinningStatesFactory winningStatesFactory)
         {
             _gameConfiguration = gameConfiguration;
 
-            Board = new Board(gameConfiguration.BoardSize, cellFactory, figureFactory);
+            Board = boardFactory.CreateBoard(_gameConfiguration.BoardSize);
             _playersAmount = _gameConfiguration.Players.Count();
             _winningStates = winningStatesFactory.CreateWinningStates(Board);
         }

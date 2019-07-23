@@ -1,4 +1,4 @@
-﻿using iTechArt.TicTacToe.Foundation.GameBoard;
+﻿using iTechArt.TicTacToe.Foundation.Board;
 
 namespace iTechArt.TicTacToe.Foundation.Interfaces
 {

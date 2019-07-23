@@ -1,4 +1,4 @@
-﻿namespace iTechArt.TicTacToe.Foundation.GameBoard
+﻿namespace iTechArt.TicTacToe.Foundation.Board
 {
     public enum FillCellResult
     {
