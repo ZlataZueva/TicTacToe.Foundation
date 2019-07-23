@@ -9,8 +9,8 @@ namespace iTechArt.TicTacToe.Foundation.Game
     public class Game : IGame
     {
         private readonly IGameConfiguration _gameConfiguration;
-
         private readonly int _playersAmount;
+
         private readonly IReadOnlyCollection<IWinningState> _winningStates;
 
         private int _nextPlayerIndex;
@@ -52,37 +52,29 @@ namespace iTechArt.TicTacToe.Foundation.Game
             CurrentPlayer = NextPlayer;
         }
 
-        public MoveResult MakeMove(int row, int column)
+        public FillCellResult MakeMove(int row, int column)
         {
             var placeResult = Board.PlaceFigure(row, column, CurrentPlayer.FigureType);
-            switch (placeResult)
+            if (placeResult != FillCellResult.Success)
             {
-                case FillCellResult.Success:
-                {
-                    var winningState = _winningStates.SingleOrDefault(state => state.IsActive);
-                    if (winningState != null)
-                    {
-                        IsFinished = true;
-                        Winner = CurrentPlayer;
-
-                        return MoveResult.GameEnd;
-                    }
-                    if (Board.IsFilled)
-                    {
-                        IsFinished = true;
-
-                        return MoveResult.GameEnd;
-                    }
-                    CurrentPlayer = NextPlayer;
-
-                    return MoveResult.NextTurn;
-                }
-                case FillCellResult.NonexistentCell:
-                case FillCellResult.OccupiedCell:
-                    return MoveResult.InvalidInput;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                return placeResult;
             }
+            var winningState = _winningStates.SingleOrDefault(state => state.IsActive);
+            if (winningState != null)
+            {
+                IsFinished = true;
+                Winner = CurrentPlayer;
+            }
+            if (Board.IsFilled)
+            {
+                IsFinished = true;
+            }
+            else
+            {
+                CurrentPlayer = NextPlayer;
+            }
+
+            return placeResult;
         }
     }
 }

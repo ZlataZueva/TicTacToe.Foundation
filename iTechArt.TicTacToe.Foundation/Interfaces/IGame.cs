@@ -1,4 +1,4 @@
-﻿using iTechArt.TicTacToe.Foundation.Game;
+﻿using iTechArt.TicTacToe.Foundation.GameBoard;
 
 namespace iTechArt.TicTacToe.Foundation.Interfaces
 {
@@ -15,6 +15,6 @@ namespace iTechArt.TicTacToe.Foundation.Interfaces
 
         void Start();
 
-        MoveResult MakeMove(int row, int column);
+        FillCellResult MakeMove(int row, int column);
     }
 }
