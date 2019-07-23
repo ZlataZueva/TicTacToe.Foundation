@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using iTechArt.TicTacToe.Foundation.Interfaces;
 using iTechArt.TicTacToe.Foundation.Board;
@@ -9,7 +8,6 @@ namespace iTechArt.TicTacToe.Foundation.Game
     public class Game : IGame
     {
         private readonly IGameConfiguration _gameConfiguration;
-        private readonly int _playersAmount;
 
         private readonly IBoard _board;
         private readonly IReadOnlyCollection<IWinningState> _winningStates;
@@ -21,7 +19,7 @@ namespace iTechArt.TicTacToe.Foundation.Game
         {
             get
             {
-                _nextPlayerIndex %= _playersAmount;
+                _nextPlayerIndex %= _gameConfiguration.Players.Count;
 
                 return _gameConfiguration.Players.ElementAt(_nextPlayerIndex++);
             }
@@ -30,12 +28,10 @@ namespace iTechArt.TicTacToe.Foundation.Game
 
         public IPlayer CurrentPlayer { get; private set; }
 
-        public bool IsFinished { get; private set; }
-
-        public IPlayer Winner { get; private set; }
-
 
         public event BoardStateChangedHandler BoardStateChanged;
+
+        public event GameFinishHandler GameFinished;
 
 
         public Game(IGameConfiguration gameConfiguration,
@@ -46,7 +42,6 @@ namespace iTechArt.TicTacToe.Foundation.Game
 
             _board = boardFactory.CreateBoard(_gameConfiguration.BoardSize);
             _winningStates = winningStatesFactory.CreateWinningStates(_board);
-            _playersAmount = _gameConfiguration.Players.Count();
         }
 
 
@@ -54,8 +49,20 @@ namespace iTechArt.TicTacToe.Foundation.Game
         {
             CurrentPlayer = NextPlayer;
         }
+        
 
-        public FillCellResult MakeMove(int row, int column)
+        protected void OnBoardStateChanged(IBoard board)
+        {
+            BoardStateChanged?.Invoke(board);
+        }
+
+        protected void OnGameFinished(IPlayer winner)
+        {
+            GameFinished?.Invoke(winner);
+        }
+
+
+        private FillCellResult MakeMove(int row, int column)
         {
             var placeResult = _board.PlaceFigure(row, column, CurrentPlayer.FigureType);
             if (placeResult != FillCellResult.Success)
@@ -66,12 +73,11 @@ namespace iTechArt.TicTacToe.Foundation.Game
             var winningState = _winningStates.SingleOrDefault(state => state.IsActive);
             if (winningState != null)
             {
-                IsFinished = true;
-                Winner = CurrentPlayer;
+                OnGameFinished(CurrentPlayer);
             }
             if (_board.IsFilled)
             {
-                IsFinished = true;
+                OnGameFinished(null);
             }
             else
             {
@@ -79,12 +85,6 @@ namespace iTechArt.TicTacToe.Foundation.Game
             }
 
             return placeResult;
-        }
-
-
-        protected void OnBoardStateChanged(IBoard board)
-        {
-            BoardStateChanged?.Invoke(board);
         }
     }
 }
