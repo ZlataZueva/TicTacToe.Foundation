@@ -1,12 +1,13 @@
-﻿namespace iTechArt.TicTacToe.Foundation.Interfaces
+﻿using System;
+using iTechArt.TicTacToe.Foundation.Game;
+
+namespace iTechArt.TicTacToe.Foundation.Interfaces
 {
-    public delegate void BoardStateChangedHandler(IBoard newBoardState);
-
-
     public interface IGame
     {
-        event BoardStateChangedHandler BoardStateChanged;
+        event EventHandler<GameStepCompletedEventArgs> GameStepCompleted;
 
+        event EventHandler<GameStepFinishedEventArgs> GameStepFinished;
 
         IGameResult Run();
     }

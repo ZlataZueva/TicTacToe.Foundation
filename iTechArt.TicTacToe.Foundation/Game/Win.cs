@@ -7,7 +7,7 @@ namespace iTechArt.TicTacToe.Foundation.Game
         public IPlayer Winner { get; }
 
         public Win(IPlayer winner)
-            : base(GameResultType.Win)
+            : base(ResultType.Win)
         {
             Winner = winner;
         }

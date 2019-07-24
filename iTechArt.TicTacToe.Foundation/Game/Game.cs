@@ -9,7 +9,7 @@ namespace iTechArt.TicTacToe.Foundation.Game
     public class Game : IGame
     {
         private readonly IGameConfiguration _gameConfiguration;
-        private readonly IGameUser _gameUser;
+        private readonly IGameInputProvider _gameInputProvider;
 
         private readonly IBoard _board;
         private readonly IReadOnlyCollection<IWinningState> _winningStates;
@@ -30,16 +30,18 @@ namespace iTechArt.TicTacToe.Foundation.Game
         }
 
 
-        public event BoardStateChangedHandler BoardStateChanged;
+        public event EventHandler<GameStepCompletedEventArgs> GameStepCompleted;
+
+        public event EventHandler<GameStepFinishedEventArgs> GameStepFinished;
 
 
         public Game(IGameConfiguration gameConfiguration,
                     IBoardFactory boardFactory,
                     IWinningStatesFactory winningStatesFactory,
-                    IGameUser gameUser)
+                    IGameInputProvider gameInputProvider)
         {
             _gameConfiguration = gameConfiguration;
-            _gameUser = gameUser;
+            _gameInputProvider = gameInputProvider;
 
             _board = boardFactory.CreateBoard(_gameConfiguration.BoardSize);
             _winningStates = winningStatesFactory.CreateWinningStates(_board);
@@ -56,38 +58,41 @@ namespace iTechArt.TicTacToe.Foundation.Game
                 var winningState = _winningStates.SingleOrDefault(state => state.IsActive);
                 if (winningState != null)
                 {
+                    OnGameStepFinished(new GameStepFinishedEventArgs(_board, ResultType.Win));
+
                     return new Win(CurrentPlayer);
                 }
+                if (!_board.IsFilled)
+                {
+                    OnGameStepFinished(new GameStepFinishedEventArgs(_board, ResultType.NextTurn));
+                }
             }
+            OnGameStepFinished(new GameStepFinishedEventArgs(_board, ResultType.Draw));
 
             return new Draw();
         }
         
 
-        protected void OnBoardStateChanged(IBoard board)
+        protected void OnGameStepCompleted(GameStepCompletedEventArgs e)
         {
-            BoardStateChanged?.Invoke(board);
+            GameStepCompleted?.Invoke(this, e);
+        }
+
+        protected void OnGameStepFinished(GameStepFinishedEventArgs e)
+        {
+            GameStepFinished?.Invoke(this, e);
         }
 
 
         private void MakeMove(IPlayer player)
         {
-            var (row, column) = _gameUser.GetPositionToMakeMove(player);
-            var placeResult = _board.PlaceFigure(row, column, player.FigureType);
-            while (placeResult != FillCellResult.Success)
+            FillCellResult fillCellResult;
+            do
             {
-                if (placeResult == FillCellResult.NonexistentCell)
-                {
-                    _gameUser.ShowError("Specified cell doesn't exist");
-                }
-                if (placeResult == FillCellResult.OccupiedCell)
-                {
-                    _gameUser.ShowError("Specified cell is occupied");
-                }
-                (row, column) = _gameUser.GetPositionToMakeMove(player);
-                placeResult = _board.PlaceFigure(row, column, player.FigureType);
-            }
-            OnBoardStateChanged(_board);
+                var (row, column) = _gameInputProvider.GetPositionToMakeMove(player);
+                fillCellResult = _board.PlaceFigure(row, column, player.FigureType);
+                OnGameStepCompleted(new GameStepCompletedEventArgs(fillCellResult));
+            } while (fillCellResult != FillCellResult.Success);
         }
     }
 }

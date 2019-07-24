@@ -1,8 +1,9 @@
 ﻿namespace iTechArt.TicTacToe.Foundation.Game
 {
-    public enum GameResultType
+    public enum ResultType
     {
         Win,
-        Draw
+        Draw,
+        NextTurn
     }
 }

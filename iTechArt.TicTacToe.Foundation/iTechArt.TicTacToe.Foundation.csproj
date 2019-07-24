@@ -52,7 +52,9 @@
     <Compile Include="Game\GameConfiguration.cs" />
     <Compile Include="Game\GameConfigurationFactory.cs" />
     <Compile Include="Game\GameResult.cs" />
-    <Compile Include="Game\GameResultType.cs" />
+    <Compile Include="Game\ResultType.cs" />
+    <Compile Include="Game\GameStepCompletedEventArgs.cs" />
+    <Compile Include="Game\GameStepFinishedEventArgs.cs" />
     <Compile Include="Game\Win.cs" />
     <Compile Include="Interfaces\IBoard.cs" />
     <Compile Include="Interfaces\IBoardFactory.cs" />
@@ -66,7 +68,7 @@
     <Compile Include="Interfaces\IGameConfigurationFactory.cs" />
     <Compile Include="Interfaces\IGameResult.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
-    <Compile Include="Interfaces\IGameUser.cs" />
+    <Compile Include="Interfaces\IGameInputProvider.cs" />
     <Compile Include="Interfaces\IWinningState.cs" />
     <Compile Include="Interfaces\IWinningStatesFactory.cs" />
     <Compile Include="WinningStates\FilledMajorDiagonal.cs" />
