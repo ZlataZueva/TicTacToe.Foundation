@@ -59,6 +59,7 @@
     <Compile Include="Interfaces\ICell.cs" />
     <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Interfaces\IGameConfiguration.cs" />
+    <Compile Include="Interfaces\IGameResult.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
     <Compile Include="Interfaces\IGameUser.cs" />
     <Compile Include="Interfaces\IWinningState.cs" />

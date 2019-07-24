@@ -2,7 +2,7 @@
 
 namespace iTechArt.TicTacToe.Foundation.Game
 {
-    public class GameResult
+    public class GameResult : IGameResult
     {
         public IPlayer Winner { get; }
 

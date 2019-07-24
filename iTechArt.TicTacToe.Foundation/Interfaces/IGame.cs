@@ -1,6 +1,4 @@
-﻿using iTechArt.TicTacToe.Foundation.Game;
-
-namespace iTechArt.TicTacToe.Foundation.Interfaces
+﻿namespace iTechArt.TicTacToe.Foundation.Interfaces
 {
     public delegate void BoardStateChangedHandler(IBoard newBoardState);
 
@@ -10,6 +8,6 @@ namespace iTechArt.TicTacToe.Foundation.Interfaces
         event BoardStateChangedHandler BoardStateChanged;
 
 
-        GameResult Run();
+        IGameResult Run();
     }
 }
