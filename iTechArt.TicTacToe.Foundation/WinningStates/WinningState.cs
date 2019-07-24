@@ -7,8 +7,7 @@ namespace iTechArt.TicTacToe.Foundation.WinningStates
 {
     public abstract class WinningState : IWinningState
     {
-        private bool _isPossible;
-        private bool _isActivated;
+        private bool? _isActive;
 
 
         public IReadOnlyCollection<ICell> Cells { get; }
@@ -17,18 +16,22 @@ namespace iTechArt.TicTacToe.Foundation.WinningStates
         {
             get
             {
-                if (!_isPossible || _isActivated)
+                if (_isActive.HasValue)
                 {
-                    return _isActivated;
+                    return _isActive.Value;
                 }
-                var figureTypesCounter = Cells.Where(c => !c.IsEmpty)
+                var figureTypesCount = Cells.Where(c => !c.IsEmpty)
                     .Select(c => c.Figure.Type).Distinct().Count();
-                if (figureTypesCounter > 1)
+                if (figureTypesCount > 1)
                 {
-                    return _isPossible = false;
+                    _isActive = false;
                 }
-                
-                return _isActivated = Cells.All(c => !c.IsEmpty);
+                else if (Cells.All(c => !c.IsEmpty))
+                {
+                    _isActive = true;
+                }
+
+                return _isActive ?? false;
             }
         } 
 
@@ -36,9 +39,6 @@ namespace iTechArt.TicTacToe.Foundation.WinningStates
         protected WinningState(IBoard board, Func<ICell, bool> filter)
         {
             Cells = board.Where(filter).ToList();
-
-            _isActivated = false;
-            _isPossible = true;
         }
     }
 }
