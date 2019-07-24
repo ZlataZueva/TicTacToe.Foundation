@@ -1,9 +1,9 @@
-﻿namespace iTechArt.TicTacToe.Foundation.Interfaces
+﻿using iTechArt.TicTacToe.Foundation.Game;
+
+namespace iTechArt.TicTacToe.Foundation.Interfaces
 {
     public interface IGameResult
     {
-        bool IsDraw { get; }
-
-        IPlayer Winner { get; }
+        GameResultType Type { get; }
     }
 }

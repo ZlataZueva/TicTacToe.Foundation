@@ -29,8 +29,6 @@ namespace iTechArt.TicTacToe.Foundation.Game
             }
         }
 
-        private IPlayer Winner { get; set; }
-        
 
         public event BoardStateChangedHandler BoardStateChanged;
 
@@ -51,18 +49,18 @@ namespace iTechArt.TicTacToe.Foundation.Game
 
         public IGameResult Run()
         {
-            while (!_board.IsFilled && Winner == null)
+            while (!_board.IsFilled)
             {
                 CurrentPlayer = NextPlayer;
                 MakeMove(CurrentPlayer);
                 var winningState = _winningStates.SingleOrDefault(state => state.IsActive);
                 if (winningState != null)
                 {
-                    Winner = CurrentPlayer;
+                    return new Win(CurrentPlayer);
                 }
             }
 
-            return new GameResult(Winner);
+            return new Draw();
         }
         
 

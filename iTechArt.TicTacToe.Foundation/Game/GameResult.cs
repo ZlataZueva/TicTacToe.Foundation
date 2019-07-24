@@ -2,17 +2,14 @@
 
 namespace iTechArt.TicTacToe.Foundation.Game
 {
-    public class GameResult : IGameResult
+    public abstract class GameResult : IGameResult
     {
-        public IPlayer Winner { get; }
-
-        public bool IsDraw { get; }
+        public GameResultType Type { get; }
 
 
-        public GameResult(IPlayer winner)
+        protected GameResult(GameResultType type)
         {
-            Winner = winner;
-            IsDraw = winner == null;
+            Type = type;
         }
     }
 }
