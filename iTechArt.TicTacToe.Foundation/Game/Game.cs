@@ -17,6 +17,8 @@ namespace iTechArt.TicTacToe.Foundation.Game
         private int _nextPlayerIndex;
 
 
+        private IPlayer CurrentPlayer { get; set; }
+        
         private IPlayer NextPlayer
         {
             get
@@ -27,13 +29,10 @@ namespace iTechArt.TicTacToe.Foundation.Game
             }
         }
 
-
-        public IPlayer CurrentPlayer { get; private set; }
-
+        private IPlayer Winner { get; set; }
+        
 
         public event BoardStateChangedHandler BoardStateChanged;
-
-        public event GameFinishHandler GameFinished;
 
 
         public Game(IGameConfiguration gameConfiguration,
@@ -50,19 +49,20 @@ namespace iTechArt.TicTacToe.Foundation.Game
         }
 
 
-        public void Run()
+        public GameResult Run()
         {
-            CurrentPlayer = NextPlayer;
-            var (row, column) = _gameUser.GetPositionToMakeMove(CurrentPlayer);
-            var moveResult = MakeMove(row, column);
-            while (moveResult != MoveResult.NextTurn && moveResult != MoveResult.GameFinish)
+            while (!_board.IsFilled && Winner == null)
             {
-                _gameUser.ShowError(moveResult == MoveResult.NonexistentCell
-                    ? "Specified cell doesn't exist"
-                    : "Specified cell is occupied");
-                (row, column) = _gameUser.GetPositionToMakeMove(CurrentPlayer);
-                moveResult = MakeMove(row, column);
+                CurrentPlayer = NextPlayer;
+                MakeMove(CurrentPlayer);
+                var winningState = _winningStates.SingleOrDefault(state => state.IsActive);
+                if (winningState != null)
+                {
+                    Winner = CurrentPlayer;
+                }
             }
+
+            return new GameResult(Winner);
         }
         
 
@@ -71,39 +71,25 @@ namespace iTechArt.TicTacToe.Foundation.Game
             BoardStateChanged?.Invoke(board);
         }
 
-        protected void OnGameFinished(IPlayer winner)
-        {
-            GameFinished?.Invoke(winner);
-        }
 
-
-        private MoveResult MakeMove(int row, int column)
+        private void MakeMove(IPlayer player)
         {
-            var placeResult = _board.PlaceFigure(row, column, CurrentPlayer.FigureType);
-            if (placeResult != FillCellResult.Success)
+            var (row, column) = _gameUser.GetPositionToMakeMove(player);
+            var placeResult = _board.PlaceFigure(row, column, player.FigureType);
+            while (placeResult != FillCellResult.Success)
             {
-                return placeResult == FillCellResult.NonexistentCell
-                    ? MoveResult.NonexistentCell
-                    : MoveResult.OccupiedCell;
+                if (placeResult == FillCellResult.NonexistentCell)
+                {
+                    _gameUser.ShowError("Specified cell doesn't exist");
+                }
+                if (placeResult == FillCellResult.OccupiedCell)
+                {
+                    _gameUser.ShowError("Specified cell is occupied");
+                }
+                (row, column) = _gameUser.GetPositionToMakeMove(player);
+                placeResult = _board.PlaceFigure(row, column, player.FigureType);
             }
             OnBoardStateChanged(_board);
-            var winningState = _winningStates.SingleOrDefault(state => state.IsActive);
-            if (winningState != null)
-            {
-                OnGameFinished(CurrentPlayer);
-            }
-            else if (_board.IsFilled)
-            {
-                OnGameFinished(null);
-            }
-            else
-            {
-                CurrentPlayer = NextPlayer;
-
-                return MoveResult.NextTurn;
-            }
-
-            return MoveResult.GameFinish;
         }
     }
 }
