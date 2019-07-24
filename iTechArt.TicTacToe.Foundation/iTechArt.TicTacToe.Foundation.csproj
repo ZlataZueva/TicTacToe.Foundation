@@ -51,6 +51,14 @@
     <Compile Include="Interfaces\IFigure.cs" />
     <Compile Include="Interfaces\IFigureFactory.cs" />
     <Compile Include="Interfaces\ICell.cs" />
+    <Compile Include="Interfaces\IWinningState.cs" />
+    <Compile Include="Interfaces\IWinningStatesFactory.cs" />
+    <Compile Include="WinningStates\FilledMajorDiagonal.cs" />
+    <Compile Include="WinningStates\FilledRow.cs" />
+    <Compile Include="WinningStates\FilledMinorDiagonal.cs" />
+    <Compile Include="WinningStates\FilledColumn.cs" />
+    <Compile Include="WinningStates\WinningState.cs" />
+    <Compile Include="WinningStates\WinningStatesFactory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
