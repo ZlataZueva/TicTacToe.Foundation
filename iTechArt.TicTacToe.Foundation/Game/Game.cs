@@ -8,26 +8,16 @@ namespace iTechArt.TicTacToe.Foundation.Game
 {
     public class Game : IGame
     {
-        private readonly IGameConfiguration _gameConfiguration;
         private readonly IGameInputProvider _gameInputProvider;
 
+        private readonly IReadOnlyCollection<IPlayer> _players;
         private readonly IBoard _board;
         private readonly IReadOnlyCollection<IWinningState> _winningStates;
 
-        private int _nextPlayerIndex;
+        private int _currentPlayerIndex;
 
 
-        private IPlayer CurrentPlayer { get; set; }
-        
-        private IPlayer NextPlayer
-        {
-            get
-            {
-                _nextPlayerIndex %= _gameConfiguration.Players.Count;
-
-                return _gameConfiguration.Players.ElementAt(_nextPlayerIndex++);
-            }
-        }
+        private IPlayer CurrentPlayer => _players.ElementAt(_currentPlayerIndex);
 
 
         public event EventHandler<GameStepCompletedEventArgs> GameStepCompleted;
@@ -35,17 +25,18 @@ namespace iTechArt.TicTacToe.Foundation.Game
         public event EventHandler<GameStepFinishedEventArgs> GameStepFinished;
 
 
-        public Game(IGameConfiguration gameConfiguration,
-                    IBoardFactory boardFactory,
-                    IWinningStatesFactory winningStatesFactory,
-                    IGameInputProvider gameInputProvider)
+        public Game(
+            IGameConfiguration gameConfiguration,
+            IBoardFactory boardFactory,
+            IWinningStatesFactory winningStatesFactory,
+            IGameInputProvider gameInputProvider)
         {
-            _gameConfiguration = gameConfiguration;
             _gameInputProvider = gameInputProvider;
 
-            _board = boardFactory.CreateBoard(_gameConfiguration.BoardSize);
+            _players = gameConfiguration.Players;
+            _board = boardFactory.CreateBoard(gameConfiguration.BoardSize);
             _winningStates = winningStatesFactory.CreateWinningStates(_board);
-            _nextPlayerIndex = _gameConfiguration.FirstPlayerIndex;
+            _currentPlayerIndex = gameConfiguration.FirstPlayerIndex;
         }
 
 
@@ -53,7 +44,6 @@ namespace iTechArt.TicTacToe.Foundation.Game
         {
             while (!_board.IsFilled)
             {
-                CurrentPlayer = NextPlayer;
                 MakeMove(CurrentPlayer);
                 var winningState = _winningStates.SingleOrDefault(state => state.IsActive);
                 if (winningState != null)
@@ -65,6 +55,10 @@ namespace iTechArt.TicTacToe.Foundation.Game
                 if (!_board.IsFilled)
                 {
                     OnGameStepFinished(new GameStepFinishedEventArgs(_board, ResultType.NextTurn));
+                }
+                else
+                {
+                    MoveToNextPlayer();
                 }
             }
             OnGameStepFinished(new GameStepFinishedEventArgs(_board, ResultType.Draw));
@@ -83,6 +77,12 @@ namespace iTechArt.TicTacToe.Foundation.Game
             GameStepFinished?.Invoke(this, e);
         }
 
+
+        private void MoveToNextPlayer()
+        {
+            _currentPlayerIndex++;
+            _currentPlayerIndex %= _players.Count;
+        }
 
         private void MakeMove(IPlayer player)
         {
