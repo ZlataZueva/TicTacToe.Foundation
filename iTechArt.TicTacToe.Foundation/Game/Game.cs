@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using iTechArt.TicTacToe.Foundation.Interfaces;
 using iTechArt.TicTacToe.Foundation.Board;
+using iTechArt.TicTacToe.Foundation.Extensions;
 
 namespace iTechArt.TicTacToe.Foundation.Game
 {
@@ -69,12 +70,12 @@ namespace iTechArt.TicTacToe.Foundation.Game
 
         protected void OnGameStepCompleted(GameStepCompletedEventArgs e)
         {
-            GameStepCompleted?.Invoke(this, e);
+           e.Raise(GameStepCompleted, this);
         }
 
         protected void OnGameStepFinished(GameStepFinishedEventArgs e)
         {
-            GameStepFinished?.Invoke(this, e);
+            e.Raise(GameStepFinished, this);
         }
 
 
