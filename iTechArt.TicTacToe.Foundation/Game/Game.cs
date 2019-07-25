@@ -42,7 +42,7 @@ namespace iTechArt.TicTacToe.Foundation.Game
         }
 
 
-        public IGameResult Run()
+        public GameResult Run()
         {
             while (!_board.IsFilled)
             {

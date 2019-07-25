@@ -1,5 +1,6 @@
 ﻿using System;
 using iTechArt.TicTacToe.Foundation.Game;
+using iTechArt.TicTacToe.Foundation.Game.Result;
 
 namespace iTechArt.TicTacToe.Foundation.Interfaces
 {
@@ -10,6 +11,6 @@ namespace iTechArt.TicTacToe.Foundation.Interfaces
         event EventHandler<GameFinishedEventArgs> GameFinished;
 
 
-        IGameResult Run();
+        GameResult Run();
     }
 }

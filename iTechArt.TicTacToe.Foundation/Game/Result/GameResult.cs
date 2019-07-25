@@ -1,8 +1,6 @@
-﻿using iTechArt.TicTacToe.Foundation.Interfaces;
-
-namespace iTechArt.TicTacToe.Foundation.Game.Result
+﻿namespace iTechArt.TicTacToe.Foundation.Game.Result
 {
-    public abstract class GameResult : IGameResult
+    public abstract class GameResult
     {
         public GameResultType Type { get; }
 
