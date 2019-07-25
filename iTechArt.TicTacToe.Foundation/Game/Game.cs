@@ -50,14 +50,14 @@ namespace iTechArt.TicTacToe.Foundation.Game
                 var winningState = _winningStates.SingleOrDefault(state => state.IsActive);
                 if (winningState != null)
                 {
-                    var winningResult = new Win(CurrentPlayer);
+                    var winningResult = new WinningGameResult(CurrentPlayer);
                     OnGameFinished(new GameFinishedEventArgs(winningResult));
 
                     return winningResult;
                 }
                 MoveToNextPlayer();
             }
-            var drawResult = new Draw();
+            var drawResult = new DrawGameResult();
             OnGameFinished(new GameFinishedEventArgs(drawResult));
 
             return drawResult;

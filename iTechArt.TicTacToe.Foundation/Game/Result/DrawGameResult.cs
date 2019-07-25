@@ -1,8 +1,8 @@
 ﻿namespace iTechArt.TicTacToe.Foundation.Game.Result
 {
-    public class Draw : GameResult
+    public class DrawGameResult : GameResult
     {
-        public Draw()
+        public DrawGameResult()
             : base(GameResultType.Draw)
         {
 

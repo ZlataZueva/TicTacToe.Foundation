@@ -2,11 +2,12 @@
 
 namespace iTechArt.TicTacToe.Foundation.Game.Result
 {
-    public class Win : GameResult
+    public class WinningGameResult : GameResult
     {
         public IPlayer Winner { get; }
 
-        public Win(IPlayer winner)
+
+        public WinningGameResult(IPlayer winner)
             : base(GameResultType.Win)
         {
             Winner = winner;

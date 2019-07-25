@@ -49,7 +49,7 @@
     <Compile Include="Figures\FigureType.cs" />
     <Compile Include="Game\NonexistentCellStepResult.cs" />
     <Compile Include="Game\OccupiedCellStepResult.cs" />
-    <Compile Include="Game\Result\Draw.cs" />
+    <Compile Include="Game\Result\DrawGameResult.cs" />
     <Compile Include="Game\Game.cs" />
     <Compile Include="Game\GameConfiguration.cs" />
     <Compile Include="Game\GameConfigurationFactory.cs" />
@@ -59,7 +59,7 @@
     <Compile Include="Game\StepResultType.cs" />
     <Compile Include="Game\StepCompletedEventArgs.cs" />
     <Compile Include="Game\GameFinishedEventArgs.cs" />
-    <Compile Include="Game\Result\Win.cs" />
+    <Compile Include="Game\Result\WinningGameResult.cs" />
     <Compile Include="Game\SucessfullStepResult.cs" />
     <Compile Include="Interfaces\IBoard.cs" />
     <Compile Include="Interfaces\IBoardFactory.cs" />
