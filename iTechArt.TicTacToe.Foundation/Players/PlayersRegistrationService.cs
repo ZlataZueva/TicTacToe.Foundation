@@ -26,6 +26,7 @@ namespace iTechArt.TicTacToe.Foundation.Players
             Players = new List<IPlayer>();
         }
 
+
         public RegistrationResult Register(string firstName, string lastName)
         {
             if (_availableFigureTypes.Count == 0)
@@ -35,6 +36,10 @@ namespace iTechArt.TicTacToe.Foundation.Players
             if (firstName == string.Empty || lastName == string.Empty)
             {
                 return RegistrationResult.NameIsEmpty;
+            }
+            if (firstName.ToCharArray().Any(char.IsDigit) || lastName.ToCharArray().Any(char.IsDigit))
+            {
+                return RegistrationResult.NameContainsDigit;
             }
             FigureType figureType;
             do

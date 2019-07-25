@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using iTechArt.TicTacToe.Foundation.Figures;
 using iTechArt.TicTacToe.Foundation.Interfaces;
 
@@ -11,6 +12,10 @@ namespace iTechArt.TicTacToe.Foundation.Players
             if (firstName == string.Empty || lastName == string.Empty)
             {
                 throw new ArgumentException("Player's first and last names should not be empty");
+            }
+            if (firstName.ToCharArray().Any(char.IsDigit) || lastName.ToCharArray().Any(char.IsDigit))
+            {
+                throw new ArgumentException("First and last names should not contain digits");
             }
 
             return new Player(firstName, lastName, figureType);
