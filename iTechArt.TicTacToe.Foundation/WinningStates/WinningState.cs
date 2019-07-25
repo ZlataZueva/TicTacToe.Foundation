@@ -12,33 +12,29 @@ namespace iTechArt.TicTacToe.Foundation.WinningStates
 
         public IReadOnlyCollection<ICell> Cells { get; }
 
-        public bool IsActive
-        {
-            get
-            {
-                if (_isActive.HasValue)
-                {
-                    return _isActive.Value;
-                }
-                var figureTypesCount = Cells.Where(c => !c.IsEmpty)
-                    .Select(c => c.Figure.Type).Distinct().Count();
-                if (figureTypesCount > 1)
-                {
-                    _isActive = false;
-                }
-                else if (Cells.All(c => !c.IsEmpty))
-                {
-                    _isActive = true;
-                }
-
-                return _isActive ?? false;
-            }
-        } 
+        public bool IsActive => _isActive ?? (_isActive = TryActivate()) ?? false;
 
 
         protected WinningState(IBoard board, Func<ICell, bool> filter)
         {
             Cells = board.Where(filter).ToList();
+        }
+
+
+        private bool? TryActivate()
+        {
+            var figureTypesCount = Cells.Where(c => !c.IsEmpty)
+                .Select(c => c.Figure.Type).Distinct().Count();
+            if (figureTypesCount > 1)
+            {
+                return false;
+            }
+            if (Cells.All(c => !c.IsEmpty))
+            {
+                return true;
+            }
+
+            return null;
         }
     }
 }
