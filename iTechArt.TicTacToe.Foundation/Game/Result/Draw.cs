@@ -3,7 +3,7 @@
     public class Draw : GameResult
     {
         public Draw()
-            : base(ResultType.Draw)
+            : base(GameResultType.Draw)
         {
 
         }

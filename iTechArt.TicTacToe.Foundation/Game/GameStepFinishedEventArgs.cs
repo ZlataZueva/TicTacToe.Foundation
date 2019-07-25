@@ -7,13 +7,13 @@ namespace iTechArt.TicTacToe.Foundation.Game
     {
         public IBoard BoardState { get; }
 
-        public ResultType ResultType { get; }
+        public StepResult StepResult { get; }
 
 
-        public GameStepFinishedEventArgs(IBoard boardState, ResultType resultType)
+        public GameStepFinishedEventArgs(IBoard boardState, StepResult stepResult)
         {
             BoardState = boardState;
-            ResultType = resultType;
+            StepResult = stepResult;
         }
     }
 }

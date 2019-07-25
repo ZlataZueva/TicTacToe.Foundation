@@ -53,7 +53,8 @@
     <Compile Include="Game\GameConfiguration.cs" />
     <Compile Include="Game\GameConfigurationFactory.cs" />
     <Compile Include="Game\GameResult.cs" />
-    <Compile Include="Game\ResultType.cs" />
+    <Compile Include="Game\GameResultType.cs" />
+    <Compile Include="Game\StepResult.cs" />
     <Compile Include="Game\GameStepCompletedEventArgs.cs" />
     <Compile Include="Game\GameStepFinishedEventArgs.cs" />
     <Compile Include="Game\Win.cs" />

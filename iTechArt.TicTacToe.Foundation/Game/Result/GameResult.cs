@@ -4,10 +4,10 @@ namespace iTechArt.TicTacToe.Foundation.Game
 {
     public abstract class GameResult : IGameResult
     {
-        public ResultType Type { get; }
+        public GameResultType Type { get; }
 
 
-        protected GameResult(ResultType type)
+        protected GameResult(GameResultType type)
         {
             Type = type;
         }
