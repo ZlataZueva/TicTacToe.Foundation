@@ -56,9 +56,6 @@ namespace iTechArt.TicTacToe.Foundation.Game
                 if (!_board.IsFilled)
                 {
                     OnGameStepFinished(new GameStepFinishedEventArgs(_board, StepResult.NextTurn));
-                }
-                else
-                {
                     MoveToNextPlayer();
                 }
             }
