@@ -14,9 +14,9 @@ namespace iTechArt.TicTacToe.Foundation.Game
         {
             var firstPlayer = players.ElementAt(firstPlayerIndex);
             var uniquePlayers = players.Distinct().ToList();
-            if (uniquePlayers.Select(p => p.FigureType).Distinct().Count() != 1)
+            if (uniquePlayers.Select(p => p.FigureType).Distinct().Count() != uniquePlayers.Count)
             {
-                throw new ArgumentException("Players should have unique figure types");
+                throw new ArgumentException("Each player should have unique figure type");
             }
             
             return new GameConfiguration(uniquePlayers, uniquePlayers.IndexOf(firstPlayer), boardSize);
