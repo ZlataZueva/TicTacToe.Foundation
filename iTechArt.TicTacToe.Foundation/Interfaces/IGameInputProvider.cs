@@ -2,6 +2,6 @@
 {
     public interface IGameInputProvider
     {
-        (int, int) GetPositionToMakeMove(IPlayer player);
+        (int row, int column) GetPositionToMakeMove(IPlayer player);
     }
 }

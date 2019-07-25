@@ -5,13 +5,14 @@ using iTechArt.TicTacToe.Foundation.Interfaces;
 using iTechArt.TicTacToe.Foundation.Board;
 using iTechArt.TicTacToe.Foundation.Extensions;
 using iTechArt.TicTacToe.Foundation.Game.Result;
+using iTechArt.TicTacToe.Foundation.Game.StepResult;
 
 namespace iTechArt.TicTacToe.Foundation.Game
 {
     public class Game : IGame
     {
         private readonly IGameInputProvider _gameInputProvider;
-        private readonly IReadOnlyCollection<IPlayer> _players;
+        private readonly IReadOnlyList<IPlayer> _players;
 
         private readonly IBoard _board;
         private readonly IReadOnlyCollection<IWinningState> _winningStates;
@@ -19,12 +20,12 @@ namespace iTechArt.TicTacToe.Foundation.Game
         private int _currentPlayerIndex;
 
 
-        private IPlayer CurrentPlayer => _players.ElementAt(_currentPlayerIndex);
+        private IPlayer CurrentPlayer => _players[_currentPlayerIndex];
 
 
-        public event EventHandler<GameStepCompletedEventArgs> GameStepCompleted;
+        public event EventHandler<StepCompletedEventArgs> StepCompleted;
 
-        public event EventHandler<GameStepFinishedEventArgs> GameStepFinished;
+        public event EventHandler<GameFinishedEventArgs> GameFinished;
 
 
         public Game(
@@ -34,7 +35,7 @@ namespace iTechArt.TicTacToe.Foundation.Game
             IGameInputProvider gameInputProvider)
         {
             _gameInputProvider = gameInputProvider;
-            _players = gameConfiguration.Players;
+            _players = new List<IPlayer>(gameConfiguration.Players);
 
             _board = boardFactory.CreateBoard(gameConfiguration.BoardSize);
             _winningStates = winningStatesFactory.CreateWinningStates(_board);
@@ -42,7 +43,7 @@ namespace iTechArt.TicTacToe.Foundation.Game
         }
 
 
-        public IGameResult Run()
+        public GameResult Run()
         {
             while (!_board.IsFilled)
             {
@@ -50,37 +51,34 @@ namespace iTechArt.TicTacToe.Foundation.Game
                 var winningState = _winningStates.SingleOrDefault(state => state.IsActive);
                 if (winningState != null)
                 {
-                    OnGameStepFinished(new GameStepFinishedEventArgs(_board, StepResult.GameEnd));
+                    var winningResult = new WinningGameResult(CurrentPlayer);
+                    OnGameFinished(new GameFinishedEventArgs(winningResult));
 
-                    return new Win(CurrentPlayer);
+                    return winningResult;
                 }
-                if (!_board.IsFilled)
-                {
-                    OnGameStepFinished(new GameStepFinishedEventArgs(_board, StepResult.NextTurn));
-                    MoveToNextPlayer();
-                }
+                MoveToNextPlayer();
             }
-            OnGameStepFinished(new GameStepFinishedEventArgs(_board, StepResult.GameEnd));
+            var drawResult = new DrawGameResult();
+            OnGameFinished(new GameFinishedEventArgs(drawResult));
 
-            return new Draw();
+            return drawResult;
         }
         
 
-        protected void OnGameStepCompleted(GameStepCompletedEventArgs e)
+        protected void OnStepCompleted(StepCompletedEventArgs e)
         {
-           e.Raise(GameStepCompleted, this);
+           StepCompleted.Raise(this, e);
         }
 
-        protected void OnGameStepFinished(GameStepFinishedEventArgs e)
+        protected void OnGameFinished(GameFinishedEventArgs e)
         {
-            e.Raise(GameStepFinished, this);
+            GameFinished.Raise(this, e);
         }
 
 
         private void MoveToNextPlayer()
         {
-            _currentPlayerIndex++;
-            _currentPlayerIndex %= _players.Count;
+            _currentPlayerIndex = (_currentPlayerIndex+1) % _players.Count;
         }
 
         private void MakeMove(IPlayer player)
@@ -90,7 +88,20 @@ namespace iTechArt.TicTacToe.Foundation.Game
             {
                 var (row, column) = _gameInputProvider.GetPositionToMakeMove(player);
                 fillCellResult = _board.PlaceFigure(row, column, player.FigureType);
-                OnGameStepCompleted(new GameStepCompletedEventArgs(fillCellResult));
+                switch (fillCellResult)
+                {
+                    case FillCellResult.Success:
+                        OnStepCompleted(new StepCompletedEventArgs(new SuccessfulStepResult(_board)));
+                        break;
+                    case FillCellResult.NonexistentCell:
+                        OnStepCompleted(new StepCompletedEventArgs(new NonexistentCellStepResult()));
+                        break;
+                    case FillCellResult.OccupiedCell:
+                        OnStepCompleted(new StepCompletedEventArgs(new OccupiedCellStepResult(_board[row,column])));
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(fillCellResult), fillCellResult, "Unknown fill cell result");
+                }
             } while (fillCellResult != FillCellResult.Success);
         }
     }

@@ -1,15 +1,16 @@
 ﻿using System;
-using iTechArt.TicTacToe.Foundation.Game;
+using iTechArt.TicTacToe.Foundation.Game.Result;
+using iTechArt.TicTacToe.Foundation.Game.StepResult;
 
 namespace iTechArt.TicTacToe.Foundation.Interfaces
 {
     public interface IGame
     {
-        event EventHandler<GameStepCompletedEventArgs> GameStepCompleted;
+        event EventHandler<StepCompletedEventArgs> StepCompleted;
 
-        event EventHandler<GameStepFinishedEventArgs> GameStepFinished;
+        event EventHandler<GameFinishedEventArgs> GameFinished;
 
 
-        IGameResult Run();
+        GameResult Run();
     }
 }

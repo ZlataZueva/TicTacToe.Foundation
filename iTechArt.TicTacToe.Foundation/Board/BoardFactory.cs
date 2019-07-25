@@ -17,7 +17,7 @@ namespace iTechArt.TicTacToe.Foundation.Board
 
         public IBoard CreateBoard(int size)
         {
-            return new Board(size,_cellFactory, _figureFactory);
+            return new Board(size, _cellFactory, _figureFactory);
         }
     }
 }

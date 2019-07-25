@@ -12,7 +12,7 @@ namespace iTechArt.TicTacToe.Foundation.WinningStates
 
         public IReadOnlyCollection<ICell> Cells { get; }
 
-        public bool IsActive => _isActive ?? (_isActive = TryActivate()) ?? false;
+        public bool IsActive => _isActive ?? (_isActive = CheckIfActive()) ?? false;
 
 
         protected WinningState(IBoard board, Func<ICell, bool> filter)
@@ -21,7 +21,7 @@ namespace iTechArt.TicTacToe.Foundation.WinningStates
         }
 
 
-        private bool? TryActivate()
+        private bool? CheckIfActive()
         {
             var figureTypesCount = Cells.Where(c => !c.IsEmpty)
                 .Select(c => c.Figure.Type).Distinct().Count();
