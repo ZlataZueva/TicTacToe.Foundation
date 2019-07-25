@@ -1,7 +1,6 @@
 ﻿using System;
-using iTechArt.TicTacToe.Foundation.Game.Result;
 
-namespace iTechArt.TicTacToe.Foundation.Game
+namespace iTechArt.TicTacToe.Foundation.Game.Result
 {
     public class GameFinishedEventArgs : EventArgs
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace iTechArt.TicTacToe.Foundation.Game
+namespace iTechArt.TicTacToe.Foundation.Game.StepResult
 {
     public class StepCompletedEventArgs : EventArgs
     {

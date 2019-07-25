@@ -5,6 +5,7 @@ using iTechArt.TicTacToe.Foundation.Interfaces;
 using iTechArt.TicTacToe.Foundation.Board;
 using iTechArt.TicTacToe.Foundation.Extensions;
 using iTechArt.TicTacToe.Foundation.Game.Result;
+using iTechArt.TicTacToe.Foundation.Game.StepResult;
 
 namespace iTechArt.TicTacToe.Foundation.Game
 {

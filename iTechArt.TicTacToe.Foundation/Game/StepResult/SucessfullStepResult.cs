@@ -1,6 +1,6 @@
 ﻿using iTechArt.TicTacToe.Foundation.Interfaces;
 
-namespace iTechArt.TicTacToe.Foundation.Game
+namespace iTechArt.TicTacToe.Foundation.Game.StepResult
 {
     public class SuccessfulStepResult : StepResult
     {

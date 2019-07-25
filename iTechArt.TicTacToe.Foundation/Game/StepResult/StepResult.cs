@@ -1,4 +1,4 @@
-﻿namespace iTechArt.TicTacToe.Foundation.Game
+﻿namespace iTechArt.TicTacToe.Foundation.Game.StepResult
 {
     public abstract class StepResult
     {
