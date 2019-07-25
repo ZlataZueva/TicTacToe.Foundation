@@ -1,8 +1,13 @@
 ﻿namespace iTechArt.TicTacToe.Foundation.Game
 {
-    public enum StepResult
+    public abstract class StepResult
     {
-        GameEnd,
-        NextTurn
+        public StepResultType Type { get; }
+
+
+        protected StepResult(StepResultType type)
+        {
+            Type = type;
+        }
     }
 }

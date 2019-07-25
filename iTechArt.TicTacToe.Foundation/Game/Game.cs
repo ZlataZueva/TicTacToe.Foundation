@@ -22,9 +22,9 @@ namespace iTechArt.TicTacToe.Foundation.Game
         private IPlayer CurrentPlayer => _players.ElementAt(_currentPlayerIndex);
 
 
-        public event EventHandler<GameStepCompletedEventArgs> GameStepCompleted;
+        public event EventHandler<StepCompletedEventArgs> StepCompleted;
 
-        public event EventHandler<GameStepFinishedEventArgs> GameStepFinished;
+        public event EventHandler<GameFinishedEventArgs> GameFinished;
 
 
         public Game(
@@ -50,30 +50,28 @@ namespace iTechArt.TicTacToe.Foundation.Game
                 var winningState = _winningStates.SingleOrDefault(state => state.IsActive);
                 if (winningState != null)
                 {
-                    OnGameStepFinished(new GameStepFinishedEventArgs(_board, StepResult.GameEnd));
+                    var winningResult = new Win(CurrentPlayer);
+                    OnGameFinished(new GameFinishedEventArgs(winningResult));
 
-                    return new Win(CurrentPlayer);
+                    return winningResult;
                 }
-                if (!_board.IsFilled)
-                {
-                    OnGameStepFinished(new GameStepFinishedEventArgs(_board, StepResult.NextTurn));
-                    MoveToNextPlayer();
-                }
+                MoveToNextPlayer();
             }
-            OnGameStepFinished(new GameStepFinishedEventArgs(_board, StepResult.GameEnd));
+            var drawResult = new Draw();
+            OnGameFinished(new GameFinishedEventArgs(drawResult));
 
-            return new Draw();
+            return drawResult;
         }
         
 
-        protected void OnGameStepCompleted(GameStepCompletedEventArgs e)
+        protected void OnStepCompleted(StepCompletedEventArgs e)
         {
-           GameStepCompleted.Raise(this, e);
+           StepCompleted.Raise(this, e);
         }
 
-        protected void OnGameStepFinished(GameStepFinishedEventArgs e)
+        protected void OnGameFinished(GameFinishedEventArgs e)
         {
-            GameStepFinished.Raise(this, e);
+            GameFinished.Raise(this, e);
         }
 
 
@@ -89,7 +87,20 @@ namespace iTechArt.TicTacToe.Foundation.Game
             {
                 var (row, column) = _gameInputProvider.GetPositionToMakeMove(player);
                 fillCellResult = _board.PlaceFigure(row, column, player.FigureType);
-                OnGameStepCompleted(new GameStepCompletedEventArgs(fillCellResult));
+                switch (fillCellResult)
+                {
+                    case FillCellResult.Success:
+                        OnStepCompleted(new StepCompletedEventArgs(new SuccessfulStepResult(_board)));
+                        break;
+                    case FillCellResult.NonexistentCell:
+                        OnStepCompleted(new StepCompletedEventArgs(new NonexistentCellStepResult()));
+                        break;
+                    case FillCellResult.OccupiedCell:
+                        OnStepCompleted(new StepCompletedEventArgs(new OccupiedCellStepResult(_board[row,column])));
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException(nameof(fillCellResult), fillCellResult, "Unknown fill cell result");
+                }
             } while (fillCellResult != FillCellResult.Success);
         }
     }

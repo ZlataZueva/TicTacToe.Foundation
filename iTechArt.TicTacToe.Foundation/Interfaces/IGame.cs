@@ -5,9 +5,9 @@ namespace iTechArt.TicTacToe.Foundation.Interfaces
 {
     public interface IGame
     {
-        event EventHandler<GameStepCompletedEventArgs> GameStepCompleted;
+        event EventHandler<StepCompletedEventArgs> StepCompleted;
 
-        event EventHandler<GameStepFinishedEventArgs> GameStepFinished;
+        event EventHandler<GameFinishedEventArgs> GameFinished;
 
 
         IGameResult Run();
