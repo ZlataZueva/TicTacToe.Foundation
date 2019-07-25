@@ -11,7 +11,7 @@ namespace iTechArt.TicTacToe.Foundation.Game
     public class Game : IGame
     {
         private readonly IGameInputProvider _gameInputProvider;
-        private readonly IReadOnlyCollection<IPlayer> _players;
+        private readonly IReadOnlyList<IPlayer> _players;
 
         private readonly IBoard _board;
         private readonly IReadOnlyCollection<IWinningState> _winningStates;
@@ -19,7 +19,7 @@ namespace iTechArt.TicTacToe.Foundation.Game
         private int _currentPlayerIndex;
 
 
-        private IPlayer CurrentPlayer => _players.ElementAt(_currentPlayerIndex);
+        private IPlayer CurrentPlayer => _players[_currentPlayerIndex];
 
 
         public event EventHandler<StepCompletedEventArgs> StepCompleted;
@@ -34,7 +34,7 @@ namespace iTechArt.TicTacToe.Foundation.Game
             IGameInputProvider gameInputProvider)
         {
             _gameInputProvider = gameInputProvider;
-            _players = gameConfiguration.Players;
+            _players = new List<IPlayer>(gameConfiguration.Players);
 
             _board = boardFactory.CreateBoard(gameConfiguration.BoardSize);
             _winningStates = winningStatesFactory.CreateWinningStates(_board);
