@@ -68,19 +68,18 @@ namespace iTechArt.TicTacToe.Foundation.Game
 
         protected void OnGameStepCompleted(GameStepCompletedEventArgs e)
         {
-           e.Raise(GameStepCompleted, this);
+           GameStepCompleted.Raise(this, e);
         }
 
         protected void OnGameStepFinished(GameStepFinishedEventArgs e)
         {
-            e.Raise(GameStepFinished, this);
+            GameStepFinished.Raise(this, e);
         }
 
 
         private void MoveToNextPlayer()
         {
-            _currentPlayerIndex++;
-            _currentPlayerIndex %= _players.Count;
+            _currentPlayerIndex = (_currentPlayerIndex+1) % _players.Count;
         }
 
         private void MakeMove(IPlayer player)
