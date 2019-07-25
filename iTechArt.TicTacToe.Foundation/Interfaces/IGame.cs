@@ -9,6 +9,7 @@ namespace iTechArt.TicTacToe.Foundation.Interfaces
 
         event EventHandler<GameStepFinishedEventArgs> GameStepFinished;
 
+
         IGameResult Run();
     }
 }

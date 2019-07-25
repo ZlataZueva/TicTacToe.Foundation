@@ -4,14 +4,15 @@ using System.Linq;
 using iTechArt.TicTacToe.Foundation.Interfaces;
 using iTechArt.TicTacToe.Foundation.Board;
 using iTechArt.TicTacToe.Foundation.Extensions;
+using iTechArt.TicTacToe.Foundation.Game.Result;
 
 namespace iTechArt.TicTacToe.Foundation.Game
 {
     public class Game : IGame
     {
         private readonly IGameInputProvider _gameInputProvider;
-
         private readonly IReadOnlyCollection<IPlayer> _players;
+
         private readonly IBoard _board;
         private readonly IReadOnlyCollection<IWinningState> _winningStates;
 
@@ -33,8 +34,8 @@ namespace iTechArt.TicTacToe.Foundation.Game
             IGameInputProvider gameInputProvider)
         {
             _gameInputProvider = gameInputProvider;
-
             _players = gameConfiguration.Players;
+
             _board = boardFactory.CreateBoard(gameConfiguration.BoardSize);
             _winningStates = winningStatesFactory.CreateWinningStates(_board);
             _currentPlayerIndex = gameConfiguration.FirstPlayerIndex;

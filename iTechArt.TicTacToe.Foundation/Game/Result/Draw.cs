@@ -1,4 +1,4 @@
-﻿namespace iTechArt.TicTacToe.Foundation.Game
+﻿namespace iTechArt.TicTacToe.Foundation.Game.Result
 {
     public class Draw : GameResult
     {
