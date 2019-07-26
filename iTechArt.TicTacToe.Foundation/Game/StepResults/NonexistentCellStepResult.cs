@@ -1,4 +1,4 @@
-﻿namespace iTechArt.TicTacToe.Foundation.Game.StepResult
+﻿namespace iTechArt.TicTacToe.Foundation.Game.StepResults
 {
     public class NonexistentCellStepResult : StepResult
     {

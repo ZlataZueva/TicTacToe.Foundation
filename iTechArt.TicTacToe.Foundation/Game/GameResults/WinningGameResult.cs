@@ -1,6 +1,6 @@
 ﻿using iTechArt.TicTacToe.Foundation.Interfaces;
 
-namespace iTechArt.TicTacToe.Foundation.Game.GameResult
+namespace iTechArt.TicTacToe.Foundation.Game.GameResults
 {
     public class WinningGameResult : GameResult
     {

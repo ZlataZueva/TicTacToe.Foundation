@@ -4,10 +4,8 @@ using System.Linq;
 using iTechArt.TicTacToe.Foundation.Interfaces;
 using iTechArt.TicTacToe.Foundation.Board;
 using iTechArt.TicTacToe.Foundation.Extensions;
-using iTechArt.TicTacToe.Foundation.Game.GameResult;
-using iTechArt.TicTacToe.Foundation.Game.StepResult;
-using GameFinishedResult = iTechArt.TicTacToe.Foundation.Game.GameResult.GameResult;
-using StepCompletedResult = iTechArt.TicTacToe.Foundation.Game.StepResult.StepResult;
+using iTechArt.TicTacToe.Foundation.Game.GameResults;
+using iTechArt.TicTacToe.Foundation.Game.StepResults;
 
 namespace iTechArt.TicTacToe.Foundation.Game
 {
@@ -45,7 +43,7 @@ namespace iTechArt.TicTacToe.Foundation.Game
         }
 
 
-        public GameFinishedResult Run()
+        public GameResult Run()
         {
             while (!_board.IsFilled)
             {
@@ -67,12 +65,12 @@ namespace iTechArt.TicTacToe.Foundation.Game
         }
         
 
-        protected void OnStepCompleted(StepCompletedResult result)
+        protected void OnStepCompleted(StepResult result)
         {
             StepCompleted.Raise(this, new StepCompletedEventArgs(result));
         }
 
-        protected void OnGameFinished(GameFinishedResult result)
+        protected void OnGameFinished(GameResult result)
         {
             GameFinished.Raise(this, new GameFinishedEventArgs(result));
         }
