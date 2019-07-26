@@ -97,7 +97,7 @@ namespace iTechArt.TicTacToe.Foundation.Game
                         OnStepCompleted(new StepCompletedEventArgs(new NonexistentCellStepResult()));
                         break;
                     case FillCellResult.OccupiedCell:
-                        OnStepCompleted(new StepCompletedEventArgs(new OccupiedCellStepResult(_board[row,column])));
+                        OnStepCompleted(new StepCompletedEventArgs(new OccupiedCellStepResult(_board[row, column])));
                         break;
                     default:
                         throw new ArgumentOutOfRangeException(nameof(fillCellResult), fillCellResult, "Unknown fill cell result");
