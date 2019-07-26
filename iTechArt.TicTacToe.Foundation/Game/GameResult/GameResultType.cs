@@ -1,4 +1,4 @@
-﻿namespace iTechArt.TicTacToe.Foundation.Game.Result
+﻿namespace iTechArt.TicTacToe.Foundation.Game.GameResult
 {
     public enum GameResultType
     {

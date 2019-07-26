@@ -1,6 +1,6 @@
 ﻿using System;
-using iTechArt.TicTacToe.Foundation.Game.Result;
-using iTechArt.TicTacToe.Foundation.Game.StepResult;
+using iTechArt.TicTacToe.Foundation.Game;
+using iTechArt.TicTacToe.Foundation.Game.GameResult;
 
 namespace iTechArt.TicTacToe.Foundation.Interfaces
 {
