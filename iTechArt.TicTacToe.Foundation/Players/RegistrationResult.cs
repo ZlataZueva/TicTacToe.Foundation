@@ -4,7 +4,6 @@
     {
         Success,
         NoMoreFigures,
-        NameIsEmpty,
-        NameContainsDigit
+        NameIsEmpty
     }
 }
