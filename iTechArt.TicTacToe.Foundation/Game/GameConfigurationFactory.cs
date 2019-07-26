@@ -13,7 +13,7 @@ namespace iTechArt.TicTacToe.Foundation.Game
             int boardSize)
         {
             var uniquePlayers = players.Distinct().ToList();
-            if (uniquePlayers.Count < players.Count)
+            if (uniquePlayers.Count != players.Count)
             {
                 throw new ArgumentException("Players collection contains duplicates");
             }

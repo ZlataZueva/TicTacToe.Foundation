@@ -4,13 +4,13 @@ namespace iTechArt.TicTacToe.Foundation.Game.StepResult
 {
     public class SuccessfulStepResult : StepResult
     {
-        public IBoard NewBoardState { get; }
+        public IBoard Board { get; }
 
 
-        public SuccessfulStepResult(IBoard newBoardState) 
+        public SuccessfulStepResult(IBoard board) 
             : base(StepResultType.Success)
         {
-            NewBoardState = newBoardState;
+            Board = board;
         }
     }
 }
