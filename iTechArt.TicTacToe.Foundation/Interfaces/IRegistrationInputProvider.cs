@@ -5,6 +5,6 @@ namespace iTechArt.TicTacToe.Foundation.Interfaces
 {
     public interface IRegistrationInputProvider
     {
-        FigureType ChooseFigureType(IReadOnlyCollection<FigureType> availableFigureTypes);
+        FigureType ChooseFigureType(ICollection<FigureType> availableFigureTypes);
     }
 }

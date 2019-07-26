@@ -41,11 +41,11 @@ namespace iTechArt.TicTacToe.Foundation.Players
             {
                 return RegistrationResult.NameContainsDigit;
             }
-            var figureType = _availableFigureTypes.Count == 1? _availableFigureTypes.First() : default;
-            while (!_availableFigureTypes.Contains(figureType))
+            FigureType figureType;
+            do
             {
-                figureType = _registrationInputProvider.ChooseFigureType(_availableFigureTypes.ToList());
-            }
+                figureType = _registrationInputProvider.ChooseFigureType(_availableFigureTypes);
+            } while (!_availableFigureTypes.Contains(figureType));
             Players.Add(_playerFactory.CreatePlayer(firstName, lastName, figureType));
             _availableFigureTypes.Remove(figureType);
 

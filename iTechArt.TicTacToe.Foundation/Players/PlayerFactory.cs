@@ -15,7 +15,7 @@ namespace iTechArt.TicTacToe.Foundation.Players
             }
             if (firstName.ToCharArray().Any(char.IsDigit) || lastName.ToCharArray().Any(char.IsDigit))
             {
-                throw new ArgumentException("Player's first and last names should not contain digits");
+                throw new ArgumentException("First and last names should not contain digits");
             }
 
             return new Player(firstName, lastName, figureType);
