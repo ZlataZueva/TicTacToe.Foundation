@@ -1,14 +1,14 @@
 ﻿using System;
-using Result = iTechArt.TicTacToe.Foundation.Game.StepResult.StepResult;
+using iTechArt.TicTacToe.Foundation.Game.StepResults;
 
 namespace iTechArt.TicTacToe.Foundation.Game
 {
     public class StepCompletedEventArgs : EventArgs
     {
-        public Result Result { get; }
+        public StepResult Result { get; }
 
 
-        public StepCompletedEventArgs(Result result)
+        public StepCompletedEventArgs(StepResult result)
         {
             Result = result;
         }
