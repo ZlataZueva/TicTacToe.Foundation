@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using iTechArt.TicTacToe.Foundation.Interfaces;
 using iTechArt.TicTacToe.Foundation.Board;
-using iTechArt.TicTacToe.Foundation.Extensions;
+using Common.Extensions;
 using iTechArt.TicTacToe.Foundation.Game.GameResults;
 using iTechArt.TicTacToe.Foundation.Game.StepResults;
 
