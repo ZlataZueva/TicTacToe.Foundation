@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Common.Extensions
+namespace iTechArt.Common.Extensions
 {
     public static class EventHandlerExtension
     {

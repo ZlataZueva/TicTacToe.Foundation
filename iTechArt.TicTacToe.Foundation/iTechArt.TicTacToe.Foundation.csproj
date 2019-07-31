@@ -87,9 +87,9 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Common\Common.csproj">
-      <Project>{86bd6d6f-67b2-4fb4-8ad3-396ab618b742}</Project>
-      <Name>Common</Name>
+    <ProjectReference Include="iTechArt.Common\iTechArt.Common.csproj">
+      <Project>{f0db31b4-a07d-410e-bcb3-ae6694475d2e}</Project>
+      <Name>iTechArt.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
