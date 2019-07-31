@@ -46,6 +46,7 @@
     <Compile Include="Figures\Figure.cs" />
     <Compile Include="Figures\FigureFactory.cs" />
     <Compile Include="Figures\FigureType.cs" />
+    <Compile Include="Game\GameFactory.cs" />
     <Compile Include="Game\StepResults\NonexistentCellStepResult.cs" />
     <Compile Include="Game\StepResults\OccupiedCellStepResult.cs" />
     <Compile Include="Game\GameResults\DrawGameResult.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Interfaces\IGame.cs" />
     <Compile Include="Interfaces\IGameConfiguration.cs" />
     <Compile Include="Interfaces\IGameConfigurationFactory.cs" />
+    <Compile Include="Interfaces\IGameFactory.cs" />
     <Compile Include="Interfaces\IPlayer.cs" />
     <Compile Include="Interfaces\IGameInputProvider.cs" />
     <Compile Include="Interfaces\IWinningState.cs" />
